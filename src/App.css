@@ -1,42 +1,54 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* <Link /> react router element is has an anchor HTML tag 
+under the hood. accessible via CSS as regular a tag */
+:root {
+	--parent: dashed red;
+	--child: dashed green;
+	--grandchild: dashed purple;
+	--charcoal: #36454f;
+	--main: rgba(255, 235, 205, 0.8);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+	background-color: var(--main);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+nav {
+	display: flex;
+	width: 100vw;
+	height: 10%;
+	max-width: 100%;
+	justify-content: space-between;
+	border: var(--parent);
+}
+nav > a {
+	border: var(--child);
+	text-decoration: none; /*removes underline from link*/
+}
+nav > span > a {
+	text-decoration: none;
+}
+nav > span {
+	border: var(--child);
+	width: 15vw;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-end;
+	padding-bottom: 1em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	line-height: 5rem;
+	background-color: var(--charcoal);
+	color: var(--main);
+	text-align: center;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+footer > span {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
 }
