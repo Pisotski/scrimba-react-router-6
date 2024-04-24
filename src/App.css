@@ -18,28 +18,27 @@ body {
 	flex-direction: column;
 	overflow: hidden;
 	height: 100vh;
+	justify-content: space-between;
 }
 
 nav {
 	display: flex;
-	width: 100vw;
+	width: 90vw;
 	min-height: 10%;
 	max-height: 25%;
 	max-width: 100%;
 	justify-content: space-between;
+	align-self: center;
 	align-items: center;
-	border: var(--parent);
 }
 
 nav > a {
-	border: var(--child);
 	text-decoration: none; /*removes underline from link*/
 }
 nav > span > a {
 	text-decoration: none;
 }
 nav > span {
-	border: var(--child);
 	width: 15vw;
 	display: flex;
 	flex-direction: row;
@@ -63,8 +62,8 @@ a:active {
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
+	/* position: absolute;
+	bottom: 0; */
 	width: 100%;
 	line-height: 5rem;
 	background-color: var(--charcoal);

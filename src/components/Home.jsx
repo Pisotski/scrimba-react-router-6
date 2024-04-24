@@ -4,7 +4,7 @@ import "../assets/Home.css";
 const Home = () => {
 	return (
 		<>
-			<div className="home-wrapper">
+			<div className="home wrapper">
 				<section>
 					<h1>You got the travel plans, we got the travel vans.</h1>
 					<p>Add adventure to your life by joining the #vanlife movement.</p>
