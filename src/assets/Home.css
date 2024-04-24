@@ -1,15 +1,44 @@
-#home-container {
+.home-wrapper {
 	background-image: linear-gradient(
 			45deg,
 			rgba(255, 166, 0, 0.374),
-			rgba(128, 128, 128, 0.5)
+			rgba(10, 10, 10, 0.831)
 		),
 		url("./home_background.jpg");
 	background-size: cover;
-	text-align: center;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: xx-large;
+	color: white;
+	padding-bottom: 5rem;
+}
+.home-wrapper > section {
+	max-width: 80%;
 }
 
-#home-container > section > h1 {
-	margin: 0%;
+.home-wrapper > section > h1 {
+	margin: 1em 0%;
+}
+
+.home-wrapper > section > p {
+	font-size: large;
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
+}
+.wide-submit-button {
+	min-width: 80%;
+}
+
+.wide-submit-button > button {
+	min-width: 100%;
+	background-color: var(--bright-orange);
+	border: none;
+	border-radius: 5px;
+	font-size: medium;
+	color: white;
+	padding: 1em;
 }

@@ -9,7 +9,7 @@ function App() {
 			<div className="app-wrapper">
 				<nav id="navbar-1">
 					<Link to="/home">
-						<h1>#VANSLIFE</h1>
+						<h1>#VANLIFE</h1>
 					</Link>
 					<span id="navbar-2">
 						<Link to="/about">About</Link>
@@ -18,7 +18,7 @@ function App() {
 				</nav>
 				<Outlet />
 				<footer>
-					<span>vanslife 2024</span>
+					<span>VANLIFE 2024</span>
 				</footer>
 			</div>
 		</>

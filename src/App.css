@@ -6,6 +6,7 @@ under the hood. accessible via CSS as regular a tag */
 	--grandchild: dashed purple;
 	--charcoal: #36454f;
 	--main: rgba(255, 235, 205, 0.8);
+	--bright-orange: rgb(255, 172, 28);
 }
 
 body {
@@ -22,9 +23,11 @@ body {
 nav {
 	display: flex;
 	width: 100vw;
-	max-height: 10%;
+	min-height: 10%;
+	max-height: 25%;
 	max-width: 100%;
 	justify-content: space-between;
+	align-items: center;
 	border: var(--parent);
 }
 
@@ -41,25 +44,20 @@ nav > span {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	align-items: flex-end;
-	padding-bottom: 1em;
 }
 
 a:link {
 	color: var(--charcoal);
 }
 
-/* visited link */
 a:visited {
 	color: var(--charcoal);
 }
 
-/* mouse over link */
 a:hover {
 	color: hotpink;
 }
 
-/* selected link */
 a:active {
 	color: var(--main);
 }
