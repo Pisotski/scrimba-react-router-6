@@ -1,0 +1,28 @@
+.option-bar {
+	display: flex;
+	justify-content: space-between;
+}
+
+.vans-options-wrapper {
+	display: flex;
+	width: 65%;
+	justify-content: space-around;
+}
+
+.vans-options {
+	background-color: rgba(255, 165, 0, 0.3);
+	padding: 0.3em 0.5em;
+	border-radius: 0.2em;
+}
+
+.vans-options:hover {
+	transform: scale(1.1);
+}
+
+.vans > section {
+	width: 90%;
+}
+.clear-filters {
+	align-self: flex-end;
+	text-decoration: underline;
+}
