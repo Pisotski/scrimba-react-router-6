@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Grid } from "./Grid";
 import("../assets/Vans.css");
 
 const Vans = () => {
@@ -32,7 +33,9 @@ const Vans = () => {
 						<div className="clear-filters">Clear filters</div>
 					</div>
 				</section>
-				<section>{/* <Grid /> */}</section>
+				<section>
+					<Grid />
+				</section>
 			</div>
 		</>
 	);
