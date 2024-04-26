@@ -1,22 +1,37 @@
 import { useState } from "react";
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { Grid } from "./Grid";
 import("../assets/Vans.css");
+const url = "api/vans";
+
+const loader = async () => {
+	try {
+		const result = await fetch(url);
+		const response = await result.json();
+		return response.vans;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+const categories = [
+	{
+		option: "Simple",
+		id: 1,
+	},
+	{
+		option: "Luxury",
+		id: 2,
+	},
+	{
+		option: "Rugged",
+		id: 3,
+	},
+];
 
 const Vans = () => {
-	const categories = [
-		{
-			option: "Simple",
-			id: 1,
-		},
-		{
-			option: "Luxury",
-			id: 2,
-		},
-		{
-			option: "Rugged",
-			id: 3,
-		},
-	];
+	const data = useLoaderData();
+
 	return (
 		<>
 			<div className="vans wrapper">
@@ -34,11 +49,11 @@ const Vans = () => {
 					</div>
 				</section>
 				<section>
-					<Grid />
+					<Grid vans={data} />
 				</section>
 			</div>
 		</>
 	);
 };
 
-export { Vans };
+export { Vans, loader };

@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
-const url = "api/vans";
-const Grid = () => {
-	const [vans, setVans] = useState([]);
+import { NavLink, useRouteLoaderData } from "react-router-dom";
 
-	useEffect(() => {
-		async function startFetching() {
-			try {
-				const result = await fetch(url);
-				const newVans = await result.json();
-				setVans(newVans);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-		startFetching();
-	}, []);
+const Grid = ({ vans }) => {
 	return (
-		<>
-			<div>hi</div>
-		</>
+		<div>
+			{vans.map((van) => {
+				return (
+					<NavLink
+						to={`${van.id}`}
+						key={van.id}
+						// TODO: Apply loading class later
+						// className={({ isActive, isPending }) =>
+						// 	isPending ? "pending" : isActive ? "active" : ""
+						// }
+					>
+						<strong>{van.name}</strong>
+						<div>{van.type}</div>
+					</NavLink>
+				);
+			})}
+		</div>
 	);
 };
 
