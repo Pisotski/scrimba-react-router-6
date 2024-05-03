@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { Grid } from "./Grid";
+import { getAllVans, postVans } from "../helpers";
+import { vansData } from "../../mockData";
 import("../assets/Vans.css");
-const url = "api/vans";
+
+// to push more vans to db
+// vansData.map((van) => postVans({ fields: van }));
 
 const loader = async () => {
-	try {
-		const result = await fetch(url);
-		const response = await result.json();
-		return response.vans;
-	} catch (err) {
-		console.log(err);
-	}
+	const data = await getAllVans();
+	return data.records;
 };
 
 const categories = [

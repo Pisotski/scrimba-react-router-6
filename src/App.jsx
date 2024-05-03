@@ -4,6 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import "./App.css";
 
 function App() {
+	// TODO: when component is mounted redirect to /home
 	return (
 		<>
 			<div className="app-wrapper">

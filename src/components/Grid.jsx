@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
-import { NavLink, useRouteLoaderData } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Grid = ({ vans }) => {
 	return (
 		<div>
-			{vans.map((van) => {
+			{vans.map(({ id, fields: { name, type } }) => {
 				return (
 					<NavLink
-						to={`${van.id}`}
-						key={van.id}
+						to={`${id}`}
+						key={id}
 						// TODO: Apply loading class later
 						// className={({ isActive, isPending }) =>
 						// 	isPending ? "pending" : isActive ? "active" : ""
 						// }
 					>
-						<strong>{van.name}</strong>
-						<div>{van.type}</div>
+						<strong>{name}</strong>
+						<div>{type}</div>
 					</NavLink>
 				);
 			})}
