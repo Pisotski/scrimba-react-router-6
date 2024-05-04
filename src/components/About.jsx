@@ -1,5 +1,6 @@
 import "../assets/About.css";
 import van from "../assets/about_image.jpg";
+import { Link } from "react-router-dom";
 
 const About = () => {
 	return (
@@ -23,16 +24,22 @@ const About = () => {
 					</p>
 				</section>
 				<section className="about-form-wrapper">
-					<form className="black-button-standard">
+					<form className="button-container">
 						<label htmlFor="explore-our-vans">
 							<strong>
 								Your destination is waiting.
 								<br /> You van is ready.
 							</strong>
 						</label>
-						<button type="submit" id="explore-our-vans">
-							Explore our vans
-						</button>
+						<Link to="/vans">
+							<button
+								type="submit"
+								id="explore-our-vans"
+								className="black-button-standard"
+							>
+								Explore our vans
+							</button>
+						</Link>
 					</form>
 				</section>
 			</div>

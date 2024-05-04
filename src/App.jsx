@@ -4,12 +4,16 @@ import { Link, Outlet } from "react-router-dom";
 import "./App.css";
 
 function App() {
-	// TODO: when component is mounted redirect to /home
 	return (
 		<>
 			<div className="app-wrapper">
 				<nav id="navbar-1">
-					<Link to="/home">
+					{/* // TODO: Apply loading class
+						// when current tab is active apply pink color to it and grey? transparent padding
+						// className={({ isActive, isPending }) =>
+						// 	isPending ? "pending" : isActive ? "active" : ""
+						// } */}
+					<Link to="/">
 						<h1>#VANLIFE</h1>
 					</Link>
 					<span id="navbar-2">

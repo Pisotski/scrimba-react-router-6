@@ -1,0 +1,14 @@
+.van-details {
+	box-sizing: border-box;
+}
+
+.van-details > img {
+	border: 1px solid #ddd;
+	border-radius: 2vh;
+	max-width: 40vh;
+	max-height: 40vh;
+}
+
+.van-details > img:hover {
+	box-shadow: 0 0 2px 1px rgba(36, 36, 36, 0.5);
+}

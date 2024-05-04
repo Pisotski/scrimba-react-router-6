@@ -12,24 +12,24 @@ import {
 	VanDescription,
 	loader as vanDescriptionLoader,
 } from "./components/VanDescription.jsx";
-
+import { action as homeAction } from "./components/Home.jsx";
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
 		errorElement: <ErrorPage />,
 		children: [
+			// TODO: make home element under index
 			{
-				path: "/home",
+				index: true,
 				element: <Home />,
+				action: homeAction,
 			},
 			{
 				path: "/about",
 				element: <About />,
 			},
 			{
-				//FIXME: redo routes. no need to have Grid separately. Just /vans:id
-				// useEffect on click. remake the grid. i don't think react router covers this scenario
 				path: "/vans",
 				element: <Vans />,
 				loader: vansLoader,
@@ -38,6 +38,11 @@ const router = createBrowserRouter([
 				path: "/vans/:vansId",
 				element: <VanDescription />,
 				loader: vanDescriptionLoader,
+			},
+			{
+				path: "vans/types/:type",
+				element: <Vans />,
+				loader: vansLoader,
 			},
 		],
 	},

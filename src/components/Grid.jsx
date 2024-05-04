@@ -8,7 +8,8 @@ const Grid = ({ vans }) => {
 					<NavLink
 						to={`${id}`}
 						key={id}
-						// TODO: Apply loading class later
+						// TODO: Apply loading class
+						//
 						// className={({ isActive, isPending }) =>
 						// 	isPending ? "pending" : isActive ? "active" : ""
 						// }

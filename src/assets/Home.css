@@ -36,7 +36,7 @@
 	min-width: 80%;
 }
 
-.wide-submit-button > button {
+.wide-submit-button button {
 	min-width: 100%;
 	background-color: var(--bright-orange);
 	border: none;
