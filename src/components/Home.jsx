@@ -10,7 +10,7 @@ const Home = () => {
 		<>
 			<div className="home wrapper">
 				<section>
-					<h1>You got the travel plans, we got the travel vans.</h1>
+					<h3>You got the travel plans, we got the travel vans.</h3>
 					<p>Add adventure to your life by joining the #vanlife movement.</p>
 					<p>Rent the perfect van to make you perfect road trip.</p>
 				</section>

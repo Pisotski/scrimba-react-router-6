@@ -1,0 +1,44 @@
+.grid > a img {
+	height: 75%;
+	width: 100%;
+	max-height: 75%;
+	max-width: 100%;
+	margin-bottom: 3%;
+	border-radius: 5px;
+}
+
+.grid {
+	display: grid;
+	height: 100%;
+	min-height: 86%;
+	width: 100%;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
+	overflow: scroll;
+}
+
+.grid > a {
+	display: flex;
+	flex-direction: column;
+	margin: 2vw;
+}
+
+.grid-van-details {
+	display: flex;
+	flex-direction: column;
+}
+.grid-van-details div {
+	display: flex;
+	justify-content: space-between;
+	font-size: small;
+}
+
+.grid-van-details div button {
+	width: 45%;
+	font-size: small;
+	margin-top: 5%;
+}
+
+.grid-van-details div span {
+	font-size: x-small;
+}

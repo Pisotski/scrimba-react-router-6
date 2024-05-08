@@ -17,14 +17,7 @@
 	justify-content: space-evenly;
 	color: white;
 	font-size: xx-large;
-}
-
-.home > section {
-	max-width: 80%;
-}
-
-.home > section > h1 {
-	margin: 1em 0%;
+	padding: 5%;
 }
 
 .home > section > p {
@@ -33,10 +26,11 @@
 	margin-block-end: 0.5em;
 }
 .wide-submit-button {
-	min-width: 80%;
+	min-width: 100%;
 }
 
 .wide-submit-button button {
+	align-self: center;
 	min-width: 100%;
 	background-color: var(--bright-orange);
 	border: none;

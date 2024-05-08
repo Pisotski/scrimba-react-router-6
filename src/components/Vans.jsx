@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useLoaderData, useNavigate, useSearchParams } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { Grid } from "./Grid";
-import { getAllVans, postVans } from "../helpers";
+import { getAllVans, postVans, titleCase } from "../helpers";
 import("../assets/Vans.css");
 
 // to push more vans to db
@@ -33,7 +33,6 @@ const categories = [
 
 const Vans = () => {
 	const [data, q] = useLoaderData();
-	const navigate = useNavigate();
 
 	const filteredVans = (filterBy) =>
 		data.filter((van) => filterBy === van.fields.type);
@@ -42,14 +41,17 @@ const Vans = () => {
 
 	const handleOptionClick = (e) => {
 		e.preventDefault();
-		setSearchParams({ filter: e.target.innerHTML });
-		// navigate(`?filter=${e.target.innerHTML}`);
+		const filter = e.target.innerHTML.toLowerCase();
+		setSearchParams({ filter });
 	};
 
-	useEffect(() => console.log("hi"), [searchParams]);
+	useEffect(
+		() => (q !== null ? setVans(filteredVans(q)) : setVans(data)),
+		[searchParams]
+	);
 
 	const handleClearFiltersClick = (e) => {
-		setVans(data);
+		setSearchParams("");
 	};
 
 	return (
@@ -60,13 +62,13 @@ const Vans = () => {
 					<div className="option-bar">
 						<div className="vans-options-wrapper">
 							{categories.map(({ option, id }) => (
-								<div
+								<button
 									key={id}
-									className="vans-options"
+									className={`option-button ${q === option ? option : ""}`}
 									onClick={handleOptionClick}
 								>
-									{option}
-								</div>
+									{titleCase(option)}
+								</button>
 							))}
 						</div>
 						<div className="clear-filters" onClick={handleClearFiltersClick}>
@@ -75,7 +77,11 @@ const Vans = () => {
 					</div>
 				</section>
 				{/* the grid fades away after user clicked on chosen van */}
-				<section className={navigation.state === "loading" ? "loading" : ""}>
+				<section
+					className={`grid-section ${
+						navigation.state === "loading" ? "loading" : "s"
+					}`}
+				>
 					<Grid vans={vans} />
 				</section>
 			</div>

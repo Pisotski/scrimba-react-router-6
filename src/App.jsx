@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import "./App.css";
@@ -14,7 +13,9 @@ function App() {
 						// 	isPending ? "pending" : isActive ? "active" : ""
 						// } */}
 					<Link to="/">
-						<h1>#VANLIFE</h1>
+						<h1>
+							<strong>#VANLIFE</strong>
+						</h1>
 					</Link>
 					<span id="navbar-2">
 						<Link to="/about">About</Link>
@@ -23,7 +24,7 @@ function App() {
 				</nav>
 				<Outlet />
 				<footer>
-					<span>VANLIFE 2024</span>
+					<span>&#169; 2024 #VANLIFE</span>
 				</footer>
 			</div>
 		</>

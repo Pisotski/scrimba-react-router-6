@@ -35,7 +35,7 @@ const About = () => {
 							<button
 								type="submit"
 								id="explore-our-vans"
-								className="black-button-standard"
+								className="option-button luxury"
 							>
 								Explore our vans
 							</button>

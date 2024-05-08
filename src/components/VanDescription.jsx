@@ -1,11 +1,5 @@
-import {
-	Link,
-	Form,
-	useLoaderData,
-	useNavigation,
-	useLocation,
-} from "react-router-dom";
-import { getVan } from "../helpers";
+import { Link, Form, useLoaderData } from "react-router-dom";
+import { getVan, titleCase } from "../helpers";
 import "../assets/VanDescription.css";
 
 const loader = async ({ params }) => {
@@ -17,6 +11,10 @@ const VanDescription = () => {
 	const { name, price, description, imageUrl, type } = useLoaderData();
 	return (
 		<div className="wrapper van-details">
+			<Link to="/vans" className="clear-filters">
+				&larr; <span>Back to all vans</span>
+			</Link>
+			<img src={imageUrl} />
 			<Link
 				to={{
 					pathname: "/vans",
@@ -24,12 +22,18 @@ const VanDescription = () => {
 					state: { fromVansDescription: true },
 				}}
 			>
-				<button type="submit">{type}</button>
+				<button type="submit" className={`option-button grid-button ${type}`}>
+					{titleCase(type)}
+				</button>
 			</Link>
-			<img src={imageUrl} />
 			<h2>{name}</h2>
-			<span>{price}</span>
+			<span>
+				<strong>${price}</strong>/day
+			</span>
 			<p>{description}</p>
+			<Form method="post" className="wide-submit-button">
+				<button type="submit">Rent this van</button>
+			</Form>
 		</div>
 	);
 };
