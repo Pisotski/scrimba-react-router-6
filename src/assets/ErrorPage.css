@@ -1,0 +1,17 @@
+.error-page {
+	padding: 5vw;
+	text-align: center;
+	justify-content: space-around;
+	height: 50%;
+	padding-bottom: 100%;
+}
+
+.error-page a {
+	width: 100%;
+}
+
+.error-page button {
+	width: 100%;
+	line-height: 3em;
+	font-size: medium;
+}

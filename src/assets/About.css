@@ -1,18 +1,19 @@
 .about-img {
 	background-image: url(./about_image.jpg);
 	width: 100%;
-	min-height: 30%;
+	min-height: 30vh;
 	background-position: center;
 	background-size: cover;
 }
 
 .about {
-	justify-content: center;
+	justify-content: space-around;
+	min-height: 100vh;
 }
 
 .about section {
 	width: 90%;
-	margin: 1em 0;
+	align-self: center;
 }
 
 .about-form-wrapper {
@@ -24,16 +25,15 @@
 }
 
 .button-container {
-	height: 100%;
-	padding: 1em;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	box-sizing: border-box;
+	justify-content: space-between;
+	padding: 1.5rem;
 }
 
 .button-container .option-button {
-	min-width: 40%;
-	padding: 1%;
+	min-width: 50%;
+	margin-top: 1rem;
+	line-height: 3em;
 	font-size: small;
 }

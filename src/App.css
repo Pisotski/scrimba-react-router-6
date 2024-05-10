@@ -28,7 +28,6 @@ a {
 	flex-direction: column;
 	overflow: hidden;
 	height: 95vh;
-	justify-content: space-between;
 }
 
 nav {
@@ -89,7 +88,7 @@ a:active {
 	touch-action: manipulation;
 	vertical-align: middle;
 	white-space: nowrap;
-	width: 30%;
+	min-width: fit-content;
 }
 
 .option-button:focus:not(:focus-visible):not(.focus-visible) {
@@ -132,7 +131,7 @@ a:active {
 
 footer {
 	position: absolute;
-	bottom: 0;
+	bottom: -0.1%;
 	width: 100%;
 	line-height: 3rem;
 	background-color: var(--charcoal);

@@ -18,6 +18,8 @@ function App() {
 						</h1>
 					</Link>
 					<span id="navbar-2">
+						{/* TODO: isLogged in make link visible, otherwise disable it */}
+						<Link to="/auth">Host</Link>
 						<Link to="/about">About</Link>
 						<Link to="/vans">Vans</Link>
 					</span>

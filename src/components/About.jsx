@@ -1,11 +1,10 @@
 import "../assets/About.css";
-import van from "../assets/about_image.jpg";
 import { Link } from "react-router-dom";
 
 const About = () => {
 	return (
 		<>
-			<div className="about wrapper">
+			<div className="wrapper about">
 				<div className="about-img header" />
 				<section>
 					<h2>Don't squeeze in a sedan when you could relax in a van</h2>
