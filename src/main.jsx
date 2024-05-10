@@ -20,6 +20,10 @@ import { MyVans } from "./components/MyVans.jsx";
 import { Dashboard } from "./components/Dashboard.jsx";
 import { Income } from "./components/Income.jsx";
 import { Reviews } from "./components/Reviews.jsx";
+import {
+	MyVansListingDetails,
+	loader as myVansListingDetailsLoader,
+} from "./components/MyVansListingDetails.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -69,6 +73,11 @@ const router = createBrowserRouter([
 						children: [
 							{ path: ":userId", element: <Dashboard /> },
 							{ path: ":userId/myVans", element: <MyVans /> },
+							{
+								path: ":userId/myVans/:vanId",
+								element: <MyVansListingDetails />,
+								loader: myVansListingDetailsLoader,
+							},
 							{ path: ":userId/income", element: <Income /> },
 							{ path: ":userId/reviews", element: <Reviews /> },
 						],

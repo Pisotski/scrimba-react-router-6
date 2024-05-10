@@ -6,6 +6,7 @@ under the hood. accessible via CSS as regular a tag */
 	--grandchild: dashed purple;
 	--charcoal: #36454f;
 	--main: rgba(255, 247, 237);
+	--highlight-white: rgb(255, 255, 255);
 	--highlight-cream: rgb(255, 234, 208);
 	--bright-orange: rgb(255, 140, 56);
 	--simple-button: rgb(225, 118, 84);
