@@ -16,7 +16,10 @@ import { Login, action as loginAction } from "./components/Login.jsx";
 import { Register, action as registerAction } from "./components/Register.jsx";
 import { Host, loader as hostLoader } from "./components/Host.jsx";
 import { Auth, loader as authLoader } from "./components/Auth.jsx";
-import { ListedVans } from "./components/ListedVans.jsx";
+import { MyVans } from "./components/MyVans.jsx";
+import { Dashboard } from "./components/Dashboard.jsx";
+import { Income } from "./components/Income.jsx";
+import { Reviews } from "./components/Reviews.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -63,7 +66,12 @@ const router = createBrowserRouter([
 						path: "host",
 						element: <Host />,
 						loader: hostLoader,
-						children: [{ path: ":userId", element: <ListedVans /> }],
+						children: [
+							{ path: ":userId", element: <Dashboard /> },
+							{ path: ":userId/myVans", element: <MyVans /> },
+							{ path: ":userId/income", element: <Income /> },
+							{ path: ":userId/reviews", element: <Reviews /> },
+						],
 					},
 				],
 			},
