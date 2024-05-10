@@ -1,6 +1,18 @@
-import { Outlet } from "react-router-dom";
-const Host = () => {
-	return <Outlet />;
+import { Navigate, Outlet, useLoaderData } from "react-router-dom";
+
+const loader = () => {
+	return localStorage.getItem("JWT");
 };
 
-export { Host };
+const Host = () => {
+	const JWT = useLoaderData();
+	return JWT ? (
+		<div>
+			<Outlet />
+		</div>
+	) : (
+		<Navigate to="/auth" />
+	);
+};
+
+export { Host, loader };

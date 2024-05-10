@@ -5,9 +5,10 @@ const loader = () => {
 	const JWT = localStorage.getItem("JWT");
 	if (JWT) {
 		const result = decode(JWT);
-		console.log(result);
+		const { id } = result;
+		return redirect(`/host/${id}`);
 	}
-	// return redirect(`host/${id}`);
+
 	return null;
 };
 

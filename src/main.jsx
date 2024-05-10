@@ -14,7 +14,7 @@ import {
 } from "./components/VanDescription.jsx";
 import { Login, action as loginAction } from "./components/Login.jsx";
 import { Register, action as registerAction } from "./components/Register.jsx";
-import { Host } from "./components/Host.jsx";
+import { Host, loader as hostLoader } from "./components/Host.jsx";
 import { Auth, loader as authLoader } from "./components/Auth.jsx";
 import { ListedVans } from "./components/ListedVans.jsx";
 
@@ -62,6 +62,7 @@ const router = createBrowserRouter([
 					{
 						path: "host",
 						element: <Host />,
+						loader: hostLoader,
 						children: [{ path: ":userId", element: <ListedVans /> }],
 					},
 				],

@@ -116,7 +116,6 @@ const register = async (credentials) => {
 		updateRecord(id, {
 			JWT: JWT,
 		});
-
 		return { JWT, id };
 	} catch (err) {
 		console.log(err);
@@ -145,12 +144,11 @@ const validatePassword = (str) => {
 };
 
 const code = (obj) => {
-	console.log(obj);
-	return btoa(obj);
+	return btoa(JSON.stringify(obj));
 };
 
 const decode = (JWT) => {
-	return atob(JWT);
+	return JSON.parse(atob(JWT));
 };
 
 export {
