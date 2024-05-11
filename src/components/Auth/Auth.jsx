@@ -1,4 +1,4 @@
-import { decode } from "../helpers.js";
+import { decode } from "../../helpers.js";
 import { Outlet, redirect } from "react-router-dom";
 
 const loader = () => {

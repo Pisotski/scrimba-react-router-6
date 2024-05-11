@@ -1,5 +1,5 @@
 import { Form, redirect } from "react-router-dom";
-import "../assets/Home.css";
+import "../../assets/Home.css";
 
 const action = () => {
 	return redirect(`/vans`);

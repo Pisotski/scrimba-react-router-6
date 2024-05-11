@@ -36,7 +36,19 @@ const getAllUsers = async () => {
 };
 
 const getVan = async (id) => {
-	let newUrl = `${url_vans}/${id}`;
+	const newUrl = `${url_vans}/${id}`;
+	try {
+		const response = await fetch(newUrl, { headers });
+		if (!response.ok) throw new Error(`Error: ${response.status}`);
+		const result = await response.json();
+		return result;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+const getVansByUser = async (userId, pageSize) => {
+	const newUrl = `${url_vans}?pageSize=${pageSize}`;
 	try {
 		const response = await fetch(newUrl, { headers });
 		if (!response.ok) throw new Error(`Error: ${response.status}`);
@@ -154,6 +166,7 @@ const decode = (JWT) => {
 export {
 	getAllVans,
 	getVan,
+	getVansByUser,
 	postVans,
 	titleCase,
 	login,

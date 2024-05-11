@@ -1,14 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { titleCase } from "../helpers";
-import "../assets/Grid.css";
+import { titleCase } from "../../helpers";
+import "../../assets/Grid.css";
 
-const Grid = ({ vans }) => {
+const Grid = ({ vans, isPrivate }) => {
 	return (
 		<div className="grid">
 			{vans.map(({ id, fields: { name, type, price, imageUrl } }) => {
+				const path = isPrivate ? `vans/${id}` : id;
 				return (
 					<NavLink
-						to={`${id}`}
+						to={path}
 						key={id}
 						// TODO: Apply loading class
 						//

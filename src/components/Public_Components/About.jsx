@@ -1,4 +1,4 @@
-import "../assets/About.css";
+import "../../assets/About.css";
 import { Link } from "react-router-dom";
 
 const About = () => {

@@ -4,26 +4,33 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
 import App from "./App.jsx";
-import { About } from "./components/About.jsx";
-import { Home, action as homeAction } from "./components/Home.jsx";
-import { Vans, loader as vansLoader } from "./components/Vans.jsx";
+import { About } from "./components/Public_Components/About.jsx";
+import {
+	Home,
+	action as homeAction,
+} from "./components/Public_Components/Home.jsx";
+import { Vans, loader as vansLoader } from "./components/Vans/Vans.jsx";
 import { ErrorPage } from "./components/ErrorPage.jsx";
 import {
 	VanDescription,
 	loader as vanDescriptionLoader,
-} from "./components/VanDescription.jsx";
-import { Login, action as loginAction } from "./components/Login.jsx";
-import { Register, action as registerAction } from "./components/Register.jsx";
-import { Host, loader as hostLoader } from "./components/Host.jsx";
-import { Auth, loader as authLoader } from "./components/Auth.jsx";
-import { MyVans } from "./components/MyVans.jsx";
-import { Dashboard } from "./components/Dashboard.jsx";
-import { Income } from "./components/Income.jsx";
-import { Reviews } from "./components/Reviews.jsx";
+} from "./components/Vans/VanDescription.jsx";
+import { Auth, loader as authLoader } from "./components/Auth/Auth.jsx";
+import { Login, action as loginAction } from "./components/Auth/Login.jsx";
 import {
-	MyVansListingDetails,
-	loader as myVansListingDetailsLoader,
-} from "./components/MyVansListingDetails.jsx";
+	Register,
+	action as registerAction,
+} from "./components/Auth/Register.jsx";
+import {
+	Host,
+	loader as hostLoader,
+} from "./components/Private_Components/Host.jsx";
+import {
+	Dashboard,
+	loader as dashboardLoader,
+} from "./components/Private_Components/Dashboard.jsx";
+import { Income } from "./components/Private_Components/Income.jsx";
+import { Reviews } from "./components/Private_Components/Reviews.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -62,7 +69,7 @@ const router = createBrowserRouter([
 						loader: vansLoader,
 					},
 					{
-						path: "vans/:vansId",
+						path: "vans/:vanId",
 						element: <VanDescription />,
 						loader: vanDescriptionLoader,
 					},
@@ -71,12 +78,20 @@ const router = createBrowserRouter([
 						element: <Host />,
 						loader: hostLoader,
 						children: [
-							{ path: ":userId", element: <Dashboard /> },
-							{ path: ":userId/myVans", element: <MyVans /> },
 							{
-								path: ":userId/myVans/:vanId",
-								element: <MyVansListingDetails />,
-								loader: myVansListingDetailsLoader,
+								path: ":userId",
+								element: <Dashboard />,
+								loader: dashboardLoader,
+							},
+							{
+								path: ":userId/vans",
+								element: <Vans />,
+								loader: vansLoader,
+							},
+							{
+								path: ":userId/vans/:vanId",
+								element: <VanDescription />,
+								loader: vanDescriptionLoader,
 							},
 							{ path: ":userId/income", element: <Income /> },
 							{ path: ":userId/reviews", element: <Reviews /> },

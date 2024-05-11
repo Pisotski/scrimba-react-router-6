@@ -1,29 +1,32 @@
 import { Link, Outlet } from "react-router-dom";
+import { Navbar } from "./components/Reusable_Components/Navbar";
 
 import "./App.css";
 
 function App() {
+	const links = [
+		{
+			path: "host",
+			label: "Host",
+		},
+		{
+			path: "about",
+			label: "About",
+		},
+		{
+			path: "vans",
+			label: "Vans",
+		},
+	];
 	return (
 		<>
 			<div className="app-wrapper">
-				<nav id="navbar-1">
-					{/* // TODO: Apply loading class
-						// when current tab is active apply pink color to it and grey? transparent padding
-						// className={({ isActive, isPending }) =>
-						// 	isPending ? "pending" : isActive ? "active" : ""
-						// } */}
-					<Link to="/">
-						<h1>
-							<strong>#VANLIFE</strong>
-						</h1>
-					</Link>
-					<span id="navbar-2">
-						{/* TODO: isLogged in make link visible, otherwise disable it */}
-						<Link to="/auth">Host</Link>
-						<Link to="/about">About</Link>
-						<Link to="/vans">Vans</Link>
-					</span>
-				</nav>
+				<Link to="/">
+					<h1>
+						<strong>#VANLIFE</strong>
+					</h1>
+				</Link>
+				<Navbar links={links} />
 				<Outlet />
 				<footer>
 					<span>&#169; 2024 #VANLIFE</span>

@@ -1,9 +1,18 @@
-import { MyVans } from "./MyVans.jsx";
-import "../assets/Dashboard.css";
+import { Vans } from "../Vans/Vans.jsx";
+import { getVansByUser } from "../../helpers.js";
+import { useLoaderData } from "react-router-dom";
+import "../../assets/Dashboard.css";
+
+const loader = async ({ params }) => {
+	const { userId } = params;
+	const data = await getVansByUser(userId, 3);
+	return data.records;
+};
 
 const Dashboard = () => {
 	const income = 1234;
 	const score = 5;
+	const vansShort = useLoaderData();
 	return (
 		<div className="wrapper dashboard">
 			<section>
@@ -24,10 +33,10 @@ const Dashboard = () => {
 				</span>
 			</section>
 			<section>
-				<MyVans />
+				<Vans data={vansShort} />
 			</section>
 		</div>
 	);
 };
 
-export { Dashboard };
+export { Dashboard, loader };

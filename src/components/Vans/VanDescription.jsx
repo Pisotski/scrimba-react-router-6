@@ -1,14 +1,18 @@
 import { Link, Form, useLoaderData } from "react-router-dom";
-import { getVan, titleCase } from "../helpers";
-import "../assets/VanDescription.css";
+import { getVan, titleCase } from "../../helpers";
+import "../../assets/VanDescription.css";
 
 const loader = async ({ params }) => {
-	const data = await getVan(params.vansId);
-	return data.fields;
+	const { vanId, userId } = params;
+	const data = await getVan(vanId);
+	return { data: data.fields, userId };
 };
 
 const VanDescription = () => {
-	const { name, price, description, imageUrl, type } = useLoaderData();
+	const {
+		data: { name, price, description, imageUrl, type },
+		userId,
+	} = useLoaderData();
 	return (
 		<div className="wrapper van-details">
 			<Link to="/vans" className="clear-filters">
