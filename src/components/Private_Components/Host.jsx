@@ -11,7 +11,7 @@ const Host = () => {
 	const { id } = decode(JWT);
 	const links = [
 		{
-			path: `/host/${id}`,
+			path: `${id}`,
 			label: "Dashboard",
 		},
 		{
@@ -21,6 +21,9 @@ const Host = () => {
 		{
 			path: `${id}/vans`,
 			label: "Vans",
+			props: {
+				isPrivate: true,
+			},
 		},
 		{
 			path: `${id}/reviews`,
@@ -29,7 +32,7 @@ const Host = () => {
 	];
 	return JWT ? (
 		<div>
-			<Navbar links={links} />
+			<Navbar links={links} isPrivate={true} />
 			<Outlet />
 		</div>
 	) : (

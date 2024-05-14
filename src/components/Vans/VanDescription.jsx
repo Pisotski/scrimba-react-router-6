@@ -1,5 +1,12 @@
-import { Link, Form, useLoaderData } from "react-router-dom";
+import {
+	Link,
+	Form,
+	useLoaderData,
+	useLocation,
+	Outlet,
+} from "react-router-dom";
 import { getVan, titleCase } from "../../helpers";
+import { Navbar } from "../Reusable_Components/Navbar";
 import "../../assets/VanDescription.css";
 
 const loader = async ({ params }) => {
@@ -9,35 +16,64 @@ const loader = async ({ params }) => {
 };
 
 const VanDescription = () => {
-	const {
-		data: { name, price, description, imageUrl, type },
-		userId,
-	} = useLoaderData();
+	const data = useLoaderData().data;
+	const { name, price, description, imageUrl, type } = data;
+	const location = useLocation();
+	const isPrivate = location.pathname.includes("host");
+	location.state = { ...location.state, data };
+
+	const links = [
+		{
+			path: "",
+			label: "Details",
+		},
+		{
+			path: "pricing",
+			label: "Pricing",
+		},
+		{
+			path: "photos",
+			label: "Photos",
+		},
+	];
+
+	// TODO: decide on functionality of type button for private route
+	const options = !isPrivate
+		? {
+				pathname: "/vans",
+				search: `?filter=${type}`,
+		  }
+		: null;
+
 	return (
 		<div className="wrapper van-details">
-			<Link to="/vans" className="clear-filters">
+			{/* TODO: return to 'userid/host/vans' */}
+			<Link to={-1} className="clear-filters">
 				&larr; <span>Back to all vans</span>
 			</Link>
 			<img src={imageUrl} />
-			<Link
-				to={{
-					pathname: "/vans",
-					search: `?filter=${type}`,
-					state: { fromVansDescription: true },
-				}}
-			>
+			<h2>{name}</h2>
+			<Link to={options}>
 				<button type="submit" className={`option-button grid-button ${type}`}>
 					{titleCase(type)}
 				</button>
 			</Link>
-			<h2>{name}</h2>
-			<span>
-				<strong>${price}</strong>/day
-			</span>
-			<p>{description}</p>
-			<Form method="post" className="wide-submit-button">
-				<button type="submit">Rent this van</button>
-			</Form>
+			{isPrivate ? (
+				<>
+					<Navbar links={links} />
+					<Outlet />
+				</>
+			) : (
+				<>
+					<span>
+						<strong>${price}</strong>/day
+					</span>
+					<p>{description}</p>
+					<Form method="post" className="wide-submit-button">
+						<button type="submit">Rent this van</button>
+					</Form>
+				</>
+			)}
 		</div>
 	);
 };

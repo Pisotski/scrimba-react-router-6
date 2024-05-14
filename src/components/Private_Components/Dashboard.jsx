@@ -1,6 +1,7 @@
-import { Vans } from "../Vans/Vans.jsx";
+import { Grid } from "../Vans/Grid.jsx";
 import { getVansByUser } from "../../helpers.js";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
+import { VansHeading } from "../Vans/VansHeading.jsx";
 import "../../assets/Dashboard.css";
 
 const loader = async ({ params }) => {
@@ -13,6 +14,7 @@ const Dashboard = () => {
 	const income = 1234;
 	const score = 5;
 	const vansShort = useLoaderData();
+
 	return (
 		<div className="wrapper dashboard">
 			<section>
@@ -33,7 +35,8 @@ const Dashboard = () => {
 				</span>
 			</section>
 			<section>
-				<Vans data={vansShort} />
+				<VansHeading isPrivate={true} />
+				<Grid vans={vansShort} fromDashboard={true} />
 			</section>
 		</div>
 	);

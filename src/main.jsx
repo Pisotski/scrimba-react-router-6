@@ -29,7 +29,22 @@ import {
 	Dashboard,
 	loader as dashboardLoader,
 } from "./components/Private_Components/Dashboard.jsx";
-import { Income } from "./components/Private_Components/Income.jsx";
+import {
+	VanDetails,
+	action as vanDetailsAction,
+} from "./components/Private_Components/VanDetails.jsx";
+import {
+	VanPricing,
+	action as vanPricingAction,
+} from "./components/Private_Components/VanPricing.jsx";
+import {
+	VanPhotos,
+	loader as vanPhotosLoader,
+} from "./components/Private_Components/VanPhotos.jsx";
+import {
+	Income,
+	loader as incomeLoader,
+} from "./components/Private_Components/Income.jsx";
 import { Reviews } from "./components/Private_Components/Reviews.jsx";
 
 const router = createBrowserRouter([
@@ -92,8 +107,30 @@ const router = createBrowserRouter([
 								path: ":userId/vans/:vanId",
 								element: <VanDescription />,
 								loader: vanDescriptionLoader,
+								children: [
+									{
+										index: true,
+										path: "*",
+										element: <VanDetails />,
+										action: vanDetailsAction,
+									},
+									{
+										path: "pricing",
+										element: <VanPricing />,
+										action: vanPricingAction,
+									},
+									{
+										path: "photos",
+										element: <VanPhotos />,
+										loader: vanPhotosLoader,
+									},
+								],
 							},
-							{ path: ":userId/income", element: <Income /> },
+							{
+								path: ":userId/income",
+								element: <Income />,
+								loader: incomeLoader,
+							},
 							{ path: ":userId/reviews", element: <Reviews /> },
 						],
 					},

@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Navbar = ({ links }) => {
+	const location = useLocation();
 	return (
 		<nav>
 			{links.map(({ path, label }) => (
-				<Link key={`link-to-${label}-route`} to={`/${path}`}>
+				<NavLink
+					key={`link-to-${label}-route`}
+					to={`${path}`}
+					state={{ from: location.pathname }}
+				>
 					{label}
-				</Link>
+				</NavLink>
 			))}
 		</nav>
 	);

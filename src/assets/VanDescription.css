@@ -9,8 +9,10 @@
 
 .van-details > img {
 	border-radius: 5px;
-	max-width: 100%;
-	min-width: 100%;
+	/* max-width: 100%;
+	min-width: 100%; */
+	max-width: 50%;
+	min-width: 50%;
 	margin: 5% 0;
 }
 
