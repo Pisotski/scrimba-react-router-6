@@ -1,5 +1,5 @@
 import { Grid } from "../Reusable_Components/Grid.jsx";
-import { getVansByUser } from "../../helpers.js";
+import { getVansByUser } from "../../controllers";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import "../../assets/Dashboard.css";
 

@@ -1,5 +1,6 @@
 import { Form, Link, redirect } from "react-router-dom";
-import { login, isValid } from "../../helpers";
+import { isValid } from "../../helpers";
+import { login } from "../../controllers";
 
 const action = async ({ request }) => {
 	localStorage.clear();

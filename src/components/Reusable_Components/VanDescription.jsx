@@ -5,10 +5,12 @@ import {
 	useLocation,
 	Outlet,
 } from "react-router-dom";
-import { getVan, titleCase } from "../../helpers";
+import { getVan } from "../../controllers";
+import { titleCase } from "../../helpers";
 import { Navbar } from "./Navbar";
 import "../../assets/VanDescription.css";
 
+// Separate loader here is done intentionally since not all data should be loaded on vans preview /vans
 const loader = async ({ params }) => {
 	const { vanId, userId } = params;
 	const data = await getVan(vanId);

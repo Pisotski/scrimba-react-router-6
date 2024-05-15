@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useSearchParams, useLocation } from "react-router-dom";
 import { Grid } from "../Reusable_Components/Grid";
-import { getAllVans, postVans, titleCase } from "../../helpers";
-import { OptionButtonsBar } from "../Reusable_Components/optionButtonsBar";
+import { getAllVans } from "../../controllers";
+import { OptionButtonsBar } from "../Reusable_Components/OptionButtonsBar";
 import("../../assets/Vans.css");
 
 // to push more vans to db

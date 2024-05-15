@@ -9,8 +9,6 @@ const loader = () => {
 const Host = () => {
 	const JWT = useLoaderData();
 	const { id } = decode(JWT);
-	const location = useLocation();
-	location.state.header = "Your listed vans";
 	const links = [
 		{
 			path: `${id}`,

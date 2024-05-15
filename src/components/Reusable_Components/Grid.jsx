@@ -1,14 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { titleCase } from "../../helpers";
 import "../../assets/Grid.css";
 
-const Grid = ({ vans, fromDashboard, children }) => {
+const Grid = ({ vans, children }) => {
 	return (
 		<>
 			{children}
 			<div className="grid">
 				{vans.map(({ id, fields: { name, type, price, imageUrl } }) => {
-					const path = fromDashboard ? `vans/${id}` : id;
+					const path = location.pathname.includes(`host`) ? id : `vans/${id}`;
 					return (
 						<NavLink
 							to={path}

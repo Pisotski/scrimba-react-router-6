@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { getVanIdPhotos } from "../../helpers";
+import { getVanIdPhotos } from "../../controllers";
 
 const loader = async ({ params }) => {
 	const { vanId } = params;

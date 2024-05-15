@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { InputWithLabel } from "../Reusable_Components/InputWithLabel";
-import { updateRecord } from "../../helpers";
+import { updateRecord } from "../../controllers";
 
 const action = async ({ request, params }) => {
 	const formData = await request.formData();

@@ -48,7 +48,10 @@ import {
 	Income,
 	loader as incomeLoader,
 } from "./components/Private_Components/Income.jsx";
-import { Reviews } from "./components/Private_Components/Reviews.jsx";
+import {
+	Reviews,
+	loader as reviewsLoader,
+} from "./components/Private_Components/Reviews.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -134,7 +137,11 @@ const router = createBrowserRouter([
 								element: <Income />,
 								loader: incomeLoader,
 							},
-							{ path: ":userId/reviews", element: <Reviews /> },
+							{
+								path: ":userId/reviews",
+								element: <Reviews />,
+								loader: reviewsLoader,
+							},
 						],
 					},
 				],
