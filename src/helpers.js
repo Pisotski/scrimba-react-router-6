@@ -76,6 +76,89 @@ const getVanIdPhotos = async (vanId, userId) => {
 	}
 };
 
+const months = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+
+const monthsPassedThisYear = () => {
+	const currentDate = new Date();
+	const currentMonth = currentDate.getMonth();
+	const monthsPassed = currentMonth + 1;
+
+	return monthsPassed;
+};
+
+const transformDataForGraph = (userId, result, monthsPast, year) => {
+	const userIncomeFull = result.records.filter(
+		(record) => record.fields.userId === userId
+	);
+	const userIncomeThisYear = userIncomeFull.filter(
+		(record) =>
+			record.fields.year === year && record.fields.month <= monthsPast.length
+	);
+	const incomeChart = {};
+	const transactionsChart = {};
+
+	for (const month of monthsPast) {
+		const monthName = months[month - 1];
+		incomeChart[monthName] = 0;
+		transactionsChart[monthName] = [];
+	}
+
+	userIncomeThisYear.forEach((record) => {
+		const { day, month, year } = record.fields;
+		const monthName = months[month - 1];
+		const transactions = JSON.parse(record.fields.transactions);
+		const date = `${month}/${day}/${year}`;
+		transactionsChart[monthName] = transactionsChart[monthName].concat([
+			[transactions, date],
+		]);
+		const sum = transactions.reduce((memo, el) => memo + el, 0);
+		incomeChart[monthName] += sum;
+	});
+	const dataForGraph = [];
+	monthsPast.forEach((month) => {
+		const monthName = months[month - 1];
+		const incomeThisMonth = {};
+		incomeThisMonth.month = monthName;
+		incomeThisMonth.earnings = incomeChart[monthName];
+		return dataForGraph.push(incomeThisMonth);
+	});
+	return {
+		incomeChart,
+		dataForGraph,
+		months: months.slice(0, monthsPast.length),
+		transactionsChart,
+	};
+};
+
+const getIncomeThisYear = async (userId = "recVEWCO9ngqLVRqO") => {
+	const monthsPast = [...Array(monthsPassedThisYear()).keys()].map(
+		(x) => x + 1
+	);
+	const year = new Date().getFullYear();
+	try {
+		const response = await fetch(url_income, { headers });
+		if (!response.ok) throw new Error(`Error: ${response.status}`);
+		const result = await response.json();
+		const data = transformDataForGraph(userId, result, monthsPast, year);
+		return data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 const postVans = async (vanInfo) => {
 	const options = {
 		method: "POST",
@@ -188,9 +271,8 @@ const generateTransactions = () => {
 	}
 	return transactions;
 };
-const generateData = () => {
+const generateData = (userId = "recVEWCO9ngqLVRqO") => {
 	const data = [];
-	const userId = "recVEWCO9ngqLVRqO";
 	const years = [2023, 2024];
 	const months = [...Array(12).keys()].map((x) => x + 1); // 1 to 12
 
@@ -227,7 +309,7 @@ const populateIncomeTab = async () => {
 	const generatedData = generateData();
 	for (const element of generatedData) {
 		await postIncome(element);
-		await new Promise((resolve) => setTimeout(resolve, 50)); // Wait for 0.2 seconds before the next iteration
+		await new Promise((resolve) => setTimeout(resolve, 50));
 	}
 };
 
@@ -236,6 +318,7 @@ export {
 	getVan,
 	getVansByUser,
 	getVanIdPhotos,
+	getIncomeThisYear,
 	postVans,
 	updateRecord,
 	titleCase,

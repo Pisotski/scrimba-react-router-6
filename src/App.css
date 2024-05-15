@@ -9,6 +9,8 @@ under the hood. accessible via CSS as regular a tag */
 	--highlight-white: rgb(255, 255, 255);
 	--highlight-cream: rgb(255, 234, 208);
 	--bright-orange: rgb(255, 140, 56);
+	--bright-orange-fade: rgb(255, 140, 56, 0.3);
+	--bar-width: 50;
 	--simple-button: rgb(225, 118, 84);
 	--luxury-button: rgb(22, 22, 22);
 	--rugged-button: rgb(17, 94, 89);

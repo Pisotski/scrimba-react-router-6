@@ -1,4 +1,4 @@
-import { Navigate, Link, Outlet, useLoaderData } from "react-router-dom";
+import { Navigate, Outlet, useLoaderData } from "react-router-dom";
 import { decode } from "../../helpers";
 import { Navbar } from "../Reusable_Components/Navbar";
 
@@ -31,10 +31,10 @@ const Host = () => {
 		},
 	];
 	return JWT ? (
-		<div>
+		<>
 			<Navbar links={links} isPrivate={true} />
 			<Outlet />
-		</div>
+		</>
 	) : (
 		<Navigate to="/auth" />
 	);

@@ -1,0 +1,16 @@
+div .VictoryContainer {
+	max-height: 30%;
+	min-height: 30%;
+	max-width: 100%;
+	min-width: 100%;
+}
+
+.transaction {
+	overflow: scroll;
+}
+
+.transaction-date {
+	background-color: var(--highlight-white);
+	width: 100%;
+	height: 3em;
+}
