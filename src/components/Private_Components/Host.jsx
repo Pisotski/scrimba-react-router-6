@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLoaderData } from "react-router-dom";
+import { Navigate, Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { decode } from "../../helpers";
 import { Navbar } from "../Reusable_Components/Navbar";
 
@@ -9,6 +9,8 @@ const loader = () => {
 const Host = () => {
 	const JWT = useLoaderData();
 	const { id } = decode(JWT);
+	const location = useLocation();
+	location.state.header = "Your listed vans";
 	const links = [
 		{
 			path: `${id}`,
@@ -32,7 +34,9 @@ const Host = () => {
 	];
 	return JWT ? (
 		<>
-			<Navbar links={links} isPrivate={true} />
+			<div className="header private">
+				<Navbar links={links} isPrivate={true} />
+			</div>
 			<Outlet />
 		</>
 	) : (

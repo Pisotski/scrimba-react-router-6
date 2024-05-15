@@ -9,12 +9,15 @@ import {
 	Home,
 	action as homeAction,
 } from "./components/Public_Components/Home.jsx";
-import { Vans, loader as vansLoader } from "./components/Vans/Vans.jsx";
+import {
+	Vans,
+	loader as vansLoader,
+} from "./components/Public_Components/Vans.jsx";
 import { ErrorPage } from "./components/ErrorPage.jsx";
 import {
 	VanDescription,
 	loader as vanDescriptionLoader,
-} from "./components/Vans/VanDescription.jsx";
+} from "./components/Reusable_Components/VanDescription.jsx";
 import { Auth, loader as authLoader } from "./components/Auth/Auth.jsx";
 import { Login, action as loginAction } from "./components/Auth/Login.jsx";
 import {

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useSearchParams, useLocation } from "react-router-dom";
-import { Grid } from "./Grid";
+import { Grid } from "../Reusable_Components/Grid";
 import { getAllVans, postVans, titleCase } from "../../helpers";
-import { VansHeading } from "./VansHeading";
+import { OptionButtonsBar } from "../Reusable_Components/optionButtonsBar";
 import("../../assets/Vans.css");
 
 // to push more vans to db
@@ -18,19 +18,17 @@ const loader = async ({ params, request }) => {
 };
 
 const Vans = ({ data }) => {
-	const { records, type, userId } = useLoaderData();
-	const vansData = records || data || [];
+	const { records, type } = useLoaderData();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const location = useLocation();
-	const isPrivate = location.state?.from
-		? location.state.from.includes(`host`)
-		: false;
-
+	const header = location.state?.header || "Explore our van options";
+	const vansData = records || data || [];
 	const filteredVans = (filterBy) =>
 		vansData.filter((van) => filterBy === van.fields.type);
 	const [vans, setVans] = useState(
 		type !== null || undefined ? filteredVans(type) : vansData
 	);
+
 	useEffect(
 		() => (type !== null ? setVans(filteredVans(type)) : setVans(vansData)),
 		[searchParams]
@@ -48,16 +46,18 @@ const Vans = ({ data }) => {
 	return (
 		<>
 			<div className="vans wrapper">
-				<VansHeading
-					isPrivate={isPrivate}
-					type={type}
-					handleOptionClick={handleOptionClick}
-					handleClearFiltersClick={handleClearFiltersClick}
-				/>
-				{/* the grid fades away after user clicked on chosen van */}
-				<section className={`grid-section`}>
-					<Grid isPrivate={isPrivate} vans={vans} />
-				</section>
+				<Grid vans={vans}>
+					<div className="header-name align-left">{header}</div>
+					{/* FIXME: design a better way for displaying option bar only for
+					private route */}
+					{!location.pathname.includes("host") && (
+						<OptionButtonsBar
+							type={type}
+							handleOptionClick={handleOptionClick}
+							handleClearFiltersClick={handleClearFiltersClick}
+						/>
+					)}
+				</Grid>
 			</div>
 		</>
 	);

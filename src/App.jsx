@@ -20,13 +20,15 @@ function App() {
 	];
 	return (
 		<>
-			<div className="app-wrapper">
-				<Link to="/">
-					<h1>
-						<strong>#VANLIFE</strong>
-					</h1>
-				</Link>
-				<Navbar links={links} />
+			<div className="wrapper app">
+				<div className="header main">
+					<Link to="/">
+						<h1>
+							<strong>#VANLIFE</strong>
+						</h1>
+					</Link>
+					<Navbar links={links} />
+				</div>
 				<Outlet />
 				<footer>
 					<span>&#169; 2024 #VANLIFE</span>

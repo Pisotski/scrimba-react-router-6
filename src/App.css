@@ -1,78 +1,27 @@
-/* <Link /> react router element is has an anchor HTML tag 
-under the hood. accessible via CSS as regular a tag */
-:root {
-	--parent: dashed red;
-	--child: dashed green;
-	--grandchild: dashed purple;
-	--charcoal: #36454f;
-	--main: rgba(255, 247, 237);
-	--highlight-white: rgb(255, 255, 255);
-	--highlight-cream: rgb(255, 234, 208);
-	--bright-orange: rgb(255, 140, 56);
-	--bright-orange-fade: rgb(255, 140, 56, 0.3);
-	--bar-width: 50;
-	--simple-button: rgb(225, 118, 84);
-	--luxury-button: rgb(22, 22, 22);
-	--rugged-button: rgb(17, 94, 89);
+.header {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
 }
 
-body {
-	background-color: var(--main);
-	font-family: Arial, Helvetica, sans-serif;
-	color: var(--luxury-button);
+.private {
+	justify-content: flex-start;
+	min-height: 3em;
 }
 
-a {
-	text-decoration: none;
+.private nav {
+	min-width: 60%;
 }
 
-.app-wrapper {
+.app nav {
+	width: 30%;
+}
+
+.app {
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
+	overflow: scroll;
 	height: 95vh;
-}
-
-nav {
-	display: flex;
-	width: 90vw;
-	min-height: 7vh;
-	max-height: 20%;
-	max-width: 100%;
-	font-size: x-small;
-	justify-content: space-between;
-	align-self: center;
-	align-items: center;
-	box-sizing: border-box;
-}
-
-nav > a {
-	text-decoration: none; /*removes underline from link*/
-}
-nav > span > a {
-	text-decoration: none;
-}
-nav > span {
-	width: 25%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-}
-
-a:link {
-	color: var(--charcoal);
-}
-
-a:visited {
-	color: var(--charcoal);
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:active {
-	color: var(--main);
 }
 
 .option-button {
@@ -100,7 +49,7 @@ a:active {
 }
 
 .option-button:focus {
-	box-shadow: rgba(46, 164, 79, 0.4) 0 0 0 3px;
+	box-shadow: rgba(164, 93, 46, 0.4) 0 0 0 30px;
 	outline: none;
 }
 
@@ -121,11 +70,13 @@ a:active {
 	color: white;
 	box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }
+
 .luxury {
 	background-color: var(--luxury-button);
 	color: white;
 	box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }
+
 .rugged {
 	background-color: var(--rugged-button);
 	color: white;

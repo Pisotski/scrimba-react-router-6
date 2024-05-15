@@ -1,3 +1,19 @@
 .dashboard {
 	min-height: 100%;
 }
+
+.welcome {
+	background-color: var(--highlight-cream);
+	height: fit-content;
+	align-items: stretch;
+}
+
+.space-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+.dashboard-review {
+	background-color: var(--highlight-muddy-orange);
+	line-height: 4em;
+}

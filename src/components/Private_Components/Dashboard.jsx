@@ -1,7 +1,6 @@
-import { Grid } from "../Vans/Grid.jsx";
+import { Grid } from "../Reusable_Components/Grid.jsx";
 import { getVansByUser } from "../../helpers.js";
-import { useLoaderData, useLocation } from "react-router-dom";
-import { VansHeading } from "../Vans/VansHeading.jsx";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 import "../../assets/Dashboard.css";
 
 const loader = async ({ params }) => {
@@ -17,26 +16,36 @@ const Dashboard = () => {
 
 	return (
 		<div className="wrapper dashboard">
-			<section>
-				<h3>Welcome</h3>
-				<div>
-					<h6>income last 30 days</h6>
-					<h6>Details</h6>
+			<section className="wrapper welcome">
+				<h2>Welcome!</h2>
+				<div className="space-between">
+					<div className="smallest-font">income last 30 days</div>
+					<span className="smallest-font">Details</span>
 				</div>
-				<h2>${income}</h2>
+				<h1>${income}</h1>
+			</section>
+			<section className="dashboard-review">
+				<div className="space-between">
+					<div>
+						<strong>Review score</strong>
+						<span>
+							<strong>{score}</strong>/5
+						</span>
+					</div>
+					<span className="smallest-font">Details</span>
+				</div>
 			</section>
 			<section>
-				<strong>Review score</strong>
-				<span>
-					<span>
-						<strong>${score}</strong>/5
-					</span>
-					<span>Details</span>
-				</span>
-			</section>
-			<section>
-				<VansHeading isPrivate={true} />
-				<Grid vans={vansShort} fromDashboard={true} />
+				<Grid vans={vansShort} fromDashboard={true}>
+					<div className="space-between">
+						<h2>Your listed vans</h2>
+						<span className="smallest-font">
+							<Link to="vans" state={{ header: "Your listed vans" }}>
+								View all
+							</Link>
+						</span>
+					</div>
+				</Grid>
 			</section>
 		</div>
 	);

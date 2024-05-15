@@ -6,7 +6,7 @@ import {
 	Outlet,
 } from "react-router-dom";
 import { getVan, titleCase } from "../../helpers";
-import { Navbar } from "../Reusable_Components/Navbar";
+import { Navbar } from "./Navbar";
 import "../../assets/VanDescription.css";
 
 const loader = async ({ params }) => {

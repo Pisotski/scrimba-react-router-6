@@ -3,7 +3,8 @@
 .option-bar {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 8%;
+	width: 100%;
+	margin: 2vh 0;
 }
 
 .vans-options-wrapper {
@@ -14,29 +15,4 @@
 
 .vans-options-wrapper > button {
 	min-width: 30%;
-}
-
-.vans > section {
-	width: 95%;
-}
-
-.clear-filters {
-	align-self: center;
-	font-size: x-small;
-	text-decoration: underline;
-}
-
-.grid-section {
-	max-height: 75%;
-}
-
-.vans > section.loading {
-	opacity: 0.25;
-	transition: opacity 200ms;
-	transition-delay: 200ms;
-}
-
-.vans h2 {
-	margin: 4% 0;
-	font-size: x-large;
 }

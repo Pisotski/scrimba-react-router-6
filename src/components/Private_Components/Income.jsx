@@ -42,7 +42,10 @@ const Income = () => {
 				theme={VictoryTheme.material}
 				domainPadding={50}
 				padding={{ bottom: 50 }}
-				width={500}
+				min-width={500}
+				max-width={500}
+				min-height={500}
+				max-height={500}
 			>
 				<VictoryAxis
 					tickValues={tickValues}
