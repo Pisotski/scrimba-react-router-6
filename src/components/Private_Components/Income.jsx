@@ -1,13 +1,13 @@
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
-import { getIncomeThisYear } from "../../controllers";
+import { getIncomeThisYear, populateIncomeTab } from "../../controllers";
 
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import "../../assets/Income.css";
 const loader = async ({ params }) => {
 	const data = await getIncomeThisYear();
-	// const { userId } = params;
-	// populateIncomeTab(userId);
+	const { userId } = params;
+	// populateIncomeTab(userId, 10);
 	return data;
 };
 

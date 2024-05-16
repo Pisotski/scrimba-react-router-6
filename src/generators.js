@@ -64,6 +64,7 @@ const transformDataForGraph = (userId, result, monthsPast, year) => {
 		transactionsChart,
 	};
 };
+
 const generateTransactions = () => {
 	const numberOfTransactions = Math.floor(Math.random() * 5) + 1;
 	const transactions = [];
@@ -73,12 +74,12 @@ const generateTransactions = () => {
 	return transactions;
 };
 
-const generateData = (userId = "recVEWCO9ngqLVRqO") => {
+const generateData = (userId = "recVEWCO9ngqLVRqO", reviewsCount) => {
 	const data = [];
 	const years = [2023, 2024];
 	const months = [...Array(12).keys()].map((x) => x + 1); // 1 to 12
 
-	for (let i = 0; i < 50; i++) {
+	for (let i = 0; i < reviewsCount; i++) {
 		const year = years[Math.floor(Math.random() * years.length)];
 		const month = months[Math.floor(Math.random() * months.length)];
 		const day =
@@ -114,15 +115,15 @@ function generateRandomReview(userId) {
 		"rec9TE31dsKYNvMm3",
 		"recjBpurTvuTf2vHA",
 	];
+	const numbers = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
 	const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
 	const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
 	const guestName = `${firstName} ${lastName}`;
 	const reviewText =
 		reviewTexts[Math.floor(Math.random() * reviewTexts.length)];
-	const vanId = vanIds[Math.floor(Math.random() * vanIds.length)]; //Generate review for random vanId
-	const score = Math.floor(Math.random() * 5) + 1; // Generate random score between 1 and 5
-
+	const vanId = vanIds[Math.floor(Math.random() * vanIds.length)];
+	const score = numbers[Math.floor(Math.random() * numbers.length)];
 	const currentDate = new Date();
 	const options = { year: "numeric", month: "long", day: "numeric" };
 	const date = currentDate.toLocaleDateString("en-US", options);

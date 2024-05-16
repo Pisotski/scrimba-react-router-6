@@ -213,22 +213,22 @@ const register = async (credentials) => {
 	}
 };
 
-const populateIncomeTab = async () => {
-	const generatedData = generateData();
+const populateIncomeTab = async (userId, reviewsCount) => {
+	const generatedData = generateData(userId, reviewsCount);
 	for (const element of generatedData) {
 		await postIncome(element);
 		await new Promise((resolve) => setTimeout(resolve, 50));
 	}
+	console.log(`income tab updated`);
 };
 
 const populateReviewsTab = async (number, userId) => {
 	const generatedData = generateReviews(number, userId);
 
-	postReview(generatedData[0]);
-	// for (const element of generatedData) {
-	// 	await postReview(element);
-	// 	await new Promise((resolve) => setTimeout(resolve, 50));
-	// }
+	for (const element of generatedData) {
+		await postReview(element);
+		await new Promise((resolve) => setTimeout(resolve, 50));
+	}
 };
 
 export {

@@ -2,7 +2,7 @@ import { populateReviewsTab } from "../../controllers";
 
 const loader = async ({ params }) => {
 	const { userId } = params;
-	await populateReviewsTab(20, userId);
+	// populateReviewsTab(20, userId);
 	return null;
 };
 
