@@ -1,4 +1,4 @@
-import { Grid } from "../Reusable_Components/Grid.jsx";
+import { VansSnippetsList } from "../Reusable_Components/VansSnippetsList.jsx";
 import { getVansByUser } from "../../controllers";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import "../../assets/Dashboard.css";
@@ -12,7 +12,7 @@ const loader = async ({ params }) => {
 const Dashboard = () => {
 	const income = 1234;
 	const score = 5;
-	const vansShort = useLoaderData();
+	const vansListPreview = useLoaderData();
 
 	return (
 		<div className="wrapper dashboard">
@@ -36,7 +36,7 @@ const Dashboard = () => {
 				</div>
 			</section>
 			<section>
-				<Grid vans={vansShort} fromDashboard={true}>
+				{/* <Grid vans={vansPreview} fromDashboard={true}>
 					<div className="space-between">
 						<h2>Your listed vans</h2>
 						<span className="smallest-font">
@@ -45,7 +45,8 @@ const Dashboard = () => {
 							</Link>
 						</span>
 					</div>
-				</Grid>
+				</Grid> */}
+				<VansSnippetsList vans={vansListPreview}></VansSnippetsList>
 			</section>
 		</div>
 	);

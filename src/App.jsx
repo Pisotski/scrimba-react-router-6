@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { Navbar } from "./components/Reusable_Components/Navbar";
 
-import "./App.css";
+import "./assets/App.css";
 
 function App() {
 	const links = [

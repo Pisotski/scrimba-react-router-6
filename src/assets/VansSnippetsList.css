@@ -1,0 +1,10 @@
+.list {
+	display: flex;
+	flex-direction: column;
+}
+
+.snippet > img {
+	float: left;
+	max-height: 10vh;
+	object-fit: contain;
+}

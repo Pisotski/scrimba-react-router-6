@@ -18,20 +18,17 @@ const Grid = ({ vans, children }) => {
 							// className={({ isActive, isPending }) =>
 							// 	isPending ? "pending" : isActive ? "active" : ""
 							// }
+							className="grid-item"
 						>
 							<img src={imageUrl}></img>
-							<div className="grid-name-price">
-								<div>
-									<strong>{name}</strong>
-									<strong>${price}</strong>
-								</div>
-								<div>
-									<button className={`option-button grid-button ${type}`}>
-										{titleCase(type)}
-									</button>
-									<span>/day</span>
-								</div>
-							</div>
+							<strong className="grid-item-name">{name}</strong>
+							<strong className="grid-item-price">
+								${price}
+								<i className="smallest-font">/day</i>
+							</strong>
+							<button className={`option-button grid-button ${type}`}>
+								{titleCase(type)}
+							</button>
 						</NavLink>
 					);
 				})}
