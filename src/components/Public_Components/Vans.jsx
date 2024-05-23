@@ -45,7 +45,7 @@ const Vans = ({ data }) => {
 
 	return (
 		<>
-			<div className="vans wrapper">
+			<div className="vans">
 				<Grid vans={vans}>
 					<div className="header-name align-left">{header}</div>
 					{/* FIXME: design a better way for displaying option bar only for

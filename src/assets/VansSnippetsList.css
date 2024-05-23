@@ -3,8 +3,19 @@
 	flex-direction: column;
 }
 
-.snippet > img {
-	float: left;
-	max-height: 10vh;
-	object-fit: contain;
+.snippet {
+	display: flex;
+	background-color: azure;
+	border: red dotted 1px;
+}
+
+/* TODO: create a wrapper for image and contain image in the wrapper */
+.image-container {
+	flex: 0 0 20%;
+	margin: 0;
+	border: red dotted 1px;
+}
+
+.image-container > img {
+	max-width: 100%;
 }

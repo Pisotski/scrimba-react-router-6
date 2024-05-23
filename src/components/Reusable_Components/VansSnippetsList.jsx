@@ -1,4 +1,4 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, useLocation, Link } from "react-router-dom";
 import "../../assets/VansSnippetsList.css";
 //
 const loader = async () => {
@@ -8,6 +8,7 @@ const loader = async () => {
 
 const VansSnippetsList = ({ vansListPreview }) => {
 	const vansList = vansListPreview || useLoaderData();
+	const location = useLocation();
 	// use data from props if data provided
 	// otherwise use data from loader
 	// display a list of vans with short description
@@ -15,9 +16,11 @@ const VansSnippetsList = ({ vansListPreview }) => {
 	return (
 		<div className="list">
 			{vansList.map(({ id, fields: { name, imageUrl, price } }) => (
-				<Link to={`vans/${id}`} key={id}>
+				<Link to={`vans/${id}`} key={id} state={{ from: location }}>
 					<div className="snippet">
-						<img src={imageUrl} />
+						<figure className="image-container">
+							<img src={imageUrl} />
+						</figure>
 						<h2>{name}</h2>
 						<div>
 							<strong>{price}</strong>

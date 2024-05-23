@@ -24,6 +24,8 @@ const VanDescription = () => {
 	const isPrivate = location.pathname.includes("host");
 	location.state = { ...location.state, data };
 
+	let backToVansLink = isPrivate ? location.state.from : -1;
+
 	const links = [
 		{
 			path: "",
@@ -48,12 +50,14 @@ const VanDescription = () => {
 		: null;
 
 	return (
-		<div className="wrapper van-details">
+		<div className="van-description">
 			{/* TODO: return to 'userid/host/vans' */}
-			<Link to={-1} className="clear-filters">
+			<Link to={backToVansLink} className="clear-filters">
 				&larr; <span>Back to all vans</span>
 			</Link>
-			<img src={imageUrl} />
+			<figure className="van-description-image-container">
+				<img src={imageUrl} />
+			</figure>
 			<h2>{name}</h2>
 			<Link to={options}>
 				<button type="submit" className={`option-button grid-button ${type}`}>

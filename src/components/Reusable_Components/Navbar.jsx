@@ -8,7 +8,7 @@ const Navbar = ({ links }) => {
 				<NavLink
 					key={`link-to-${label}-route`}
 					to={`${path}`}
-					state={{ from: location.pathname }}
+					state={location.state}
 				>
 					{label}
 				</NavLink>

@@ -3,12 +3,13 @@ import { titleCase } from "../../helpers";
 import "../../assets/Grid.css";
 
 const Grid = ({ vans, children }) => {
+	const location = useLocation();
 	return (
 		<>
 			{children}
 			<div className="grid">
 				{vans.map(({ id, fields: { name, type, price, imageUrl } }) => {
-					const path = location.pathname.includes(`host`) ? id : `vans/${id}`;
+					const path = location.pathname.includes(`host`) ? `vans/${id}` : id;
 					return (
 						<NavLink
 							to={path}
@@ -18,6 +19,7 @@ const Grid = ({ vans, children }) => {
 							// className={({ isActive, isPending }) =>
 							// 	isPending ? "pending" : isActive ? "active" : ""
 							// }
+							state={{ from: location }}
 							className="grid-item"
 						>
 							<img src={imageUrl}></img>

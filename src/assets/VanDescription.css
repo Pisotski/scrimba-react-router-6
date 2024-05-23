@@ -1,0 +1,15 @@
+.van-description {
+	display: flex;
+	flex-direction: column;
+}
+
+.van-description-image-container {
+	margin: 0;
+	align-self: center;
+	width: 90%;
+}
+
+.van-description-image-container > img {
+	width: 100%;
+	object-fit: contain;
+}
