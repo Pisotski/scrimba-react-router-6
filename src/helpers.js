@@ -27,4 +27,29 @@ const decode = (JWT) => {
 	return JSON.parse(atob(JWT));
 };
 
-export { titleCase, isValid, code, decode };
+const countTotalScore = (data) => {
+	const totalStars = data.reduce((memo, el) => {
+		return (memo += el.fields.score);
+	}, 0);
+	return Math.round((totalStars / data.length) * 10) / 10;
+};
+
+const countStarsPercentage = (data) => {
+	const starsNumberPerScore = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+	data.forEach((el) => (starsNumberPerScore[el.fields.score] += 1));
+	for (const stars in starsNumberPerScore) {
+		starsNumberPerScore[stars] = Math.round(
+			(starsNumberPerScore[stars] / data.length) * 100
+		);
+	}
+	return starsNumberPerScore;
+};
+
+export {
+	titleCase,
+	isValid,
+	code,
+	decode,
+	countTotalScore,
+	countStarsPercentage,
+};

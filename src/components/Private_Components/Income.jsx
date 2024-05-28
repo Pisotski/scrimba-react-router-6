@@ -5,8 +5,8 @@ import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import "../../assets/Income.css";
 const loader = async ({ params }) => {
-	const data = await getIncomeThisYear();
 	const { userId } = params;
+	const data = await getIncomeThisYear(userId);
 	// populateIncomeTab(userId, 10);
 	return data;
 };

@@ -1,0 +1,7 @@
+.pagination-container {
+	display: flex;
+}
+
+.active-page {
+	background-color: rgba(142, 142, 239, 0.5);
+}

@@ -4,3 +4,13 @@ html {
 	padding: 0;
 	height: 100%;
 }
+
+nav {
+	display: flex;
+	gap: 10px;
+}
+
+figure,
+blockquote {
+	margin: 0;
+}

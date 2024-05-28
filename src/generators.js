@@ -37,7 +37,6 @@ const transformDataForGraph = (userId, result, monthsPast, year) => {
 		incomeChart[monthName] = 0;
 		transactionsChart[monthName] = [];
 	}
-
 	userIncomeThisYear.forEach((record) => {
 		const { day, month, year } = record.fields;
 		const monthName = months[month - 1];
@@ -57,6 +56,7 @@ const transformDataForGraph = (userId, result, monthsPast, year) => {
 		incomeThisMonth.earnings = incomeChart[monthName];
 		return dataForGraph.push(incomeThisMonth);
 	});
+
 	return {
 		incomeChart,
 		dataForGraph,
@@ -64,7 +64,7 @@ const transformDataForGraph = (userId, result, monthsPast, year) => {
 		transactionsChart,
 	};
 };
-
+// userId = "recVEWCO9ngqLVRqO",
 const generateTransactions = () => {
 	const numberOfTransactions = Math.floor(Math.random() * 5) + 1;
 	const transactions = [];
@@ -74,7 +74,7 @@ const generateTransactions = () => {
 	return transactions;
 };
 
-const generateData = (userId = "recVEWCO9ngqLVRqO", reviewsCount) => {
+const generateData = (userId, reviewsCount) => {
 	const data = [];
 	const years = [2023, 2024];
 	const months = [...Array(12).keys()].map((x) => x + 1); // 1 to 12
@@ -115,7 +115,7 @@ function generateRandomReview(userId) {
 		"rec9TE31dsKYNvMm3",
 		"recjBpurTvuTf2vHA",
 	];
-	const numbers = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+	const numbers = [1, 2, 3, 4, 5];
 
 	const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
 	const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];

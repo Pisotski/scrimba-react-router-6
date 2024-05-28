@@ -88,7 +88,7 @@ const getVanIdPhotos = async (vanId, userId) => {
 	}
 };
 
-const getIncomeThisYear = async (userId = "recVEWCO9ngqLVRqO") => {
+const getIncomeThisYear = async (userId) => {
 	const monthsPast = [...Array(monthsPassedThisYear()).keys()].map(
 		(x) => x + 1
 	);
@@ -102,6 +102,33 @@ const getIncomeThisYear = async (userId = "recVEWCO9ngqLVRqO") => {
 	} catch (err) {
 		console.log(err);
 	}
+};
+
+const getAllReviewsForUser = async (userId) => {
+	const newUrl = `${url_reviews}`;
+	try {
+		// get all reviews filter them by vanId and userId
+		// technically there should not be a case that 2 vans with the same id exists,
+		const response = await fetch(newUrl, { headers });
+		if (!response.ok) throw new Error(`Error: ${response.status}`);
+		const result = await response.json();
+		const reviewsByUser = result.records.filter(
+			(r) => r.fields.userId === userId
+		);
+		return reviewsByUser;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+const getPageReviews = async (userId, stars) => {};
+
+const getFilteredReviewsByStars = async (userId, stars) => {
+	const data = await getAllReviewsForUser(userId);
+	const reviews = data.filter(
+		(review) => review.fields.score === Number(stars)
+	);
+	return reviews;
 };
 
 const postIncome = async (income) => {
@@ -237,6 +264,9 @@ export {
 	getVansByUser,
 	getVanIdPhotos,
 	getIncomeThisYear,
+	getAllReviewsForUser,
+	getPageReviews,
+	getFilteredReviewsByStars,
 	postVans,
 	postIncome,
 	updateRecord,

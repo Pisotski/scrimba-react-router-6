@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import "normalize.css";
 
 import App from "./App.jsx";
 import { About } from "./components/Public_Components/About.jsx";
@@ -52,6 +53,10 @@ import {
 	Reviews,
 	loader as reviewsLoader,
 } from "./components/Private_Components/Reviews.jsx";
+import {
+	VansSnippetsList,
+	loader as vansSnippetsListLoader,
+} from "./components/Reusable_Components/VansSnippetsList.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -106,8 +111,8 @@ const router = createBrowserRouter([
 							},
 							{
 								path: ":userId/vans",
-								element: <Vans />,
-								loader: vansLoader,
+								element: <VansSnippetsList />,
+								loader: vansSnippetsListLoader,
 							},
 							{
 								path: ":userId/vans/:vanId",
