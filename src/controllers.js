@@ -5,6 +5,7 @@ import {
 	generateData,
 	generateReviews,
 } from "./generators";
+import axios from "axios";
 
 const url_vans = `https://api.airtable.com/v0/${
 	import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -23,9 +24,12 @@ const url_reviews = `https://api.airtable.com/v0/${
 }/${import.meta.env.VITE_TABLE_NAME_REVIEWS}`;
 
 const headers = {
-	Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+	// Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
 	"Content-Type": "application/json",
 };
+
+const url_main = `http://localhost:${import.meta.env.VITE_PORT}/api/v1`;
+const url_auth = `/auth`;
 
 const getAllVans = async () => {
 	try {
@@ -200,41 +204,34 @@ const updateRecord = async (id, obj) => {
 };
 
 const login = async (credentials) => {
-	const allUsers = await getAllUsers();
 	const { login, password } = credentials;
-	const [{ id, fields }] = allUsers.records.filter(
-		(el) => el.fields.login === login && el.fields.password === password
-	);
+	// const [{ id, fields }] = allUsers.records.filter(
+	// 	(el) => el.fields.login === login && el.fields.password === password
+	// );
+	try {
+		const response = await axios.post(
+			`${url_main}${url_auth}/login`,
+			credentials,
+			headers
+		);
+		console.log(response);
+	} catch (error) {
+		console.error(error);
+	}
+
 	return { ...fields, id };
 };
 
 const register = async (credentials) => {
-	const { login } = credentials;
-	const usersData = await getAllUsers();
-	usersData.records.forEach((record) => {
-		if (record.fields.login === login)
-			throw new Error(`${login} already in use, please choose another email`);
-	});
-
-	const options = {
-		method: "POST",
-		headers,
-		body: JSON.stringify({ fields: { ...credentials } }),
-	};
-
 	try {
-		const response = await fetch(url_users, options);
-		if (!response.ok) throw new Error(`Error: ${response.status}`);
-		console.log(`${credentials.login} added to database`);
-		const {
-			fields: { login },
-			id,
-		} = await response.json();
-		const JWT = code({ id, login });
-		updateRecord(id, {
-			JWT: JWT,
-		});
-		return { JWT, id };
+		const response = await axios.post(
+			`${url_main}${url_auth}/register`,
+			credentials,
+			headers
+		);
+
+		console.log(response);
+		console.log(`new user ${credentials.name} created`);
 	} catch (err) {
 		console.log(err);
 	}

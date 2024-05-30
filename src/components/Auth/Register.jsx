@@ -5,9 +5,7 @@ import { register } from "../../controllers";
 const action = async ({ request }) => {
 	localStorage.clear();
 	const formData = await request.formData();
-	const credentials = Object.fromEntries(formData) || null;
-
-	if (!isValid(credentials)) throw new Error("invalid credentials");
+	const credentials = Object.fromEntries(formData);
 	const { JWT, id } = await register(credentials);
 	if (!JWT) throw new Error("user not found or credentials are incorrect");
 	localStorage.setItem("JWT", JWT);
@@ -19,12 +17,12 @@ const Register = () => {
 		<>
 			<Form method="POST" className="auth-form">
 				<div>
-					<label htmlFor="login">Name: </label>
-					<input
-						id="login"
-						placeholder="e-mail or phone number"
-						name="login"
-					></input>
+					<label htmlFor="name">Name: </label>
+					<input id="name" placeholder="name" name="name"></input>
+				</div>
+				<div>
+					<label htmlFor="email">E-mail: </label>
+					<input id="email" placeholder="e-mail" name="email"></input>
 				</div>
 				<div>
 					<label htmlFor="password">Password: </label>

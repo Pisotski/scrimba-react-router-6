@@ -18,12 +18,8 @@ const Login = () => {
 		<>
 			<Form method="POST" className="auth-form">
 				<div>
-					<label htmlFor="login">Name: </label>
-					<input
-						id="login"
-						placeholder="e-mail or phone number"
-						name="login"
-					></input>
+					<label htmlFor="email">email: </label>
+					<input id="email" placeholder="e-mail" name="email"></input>
 				</div>
 				<div>
 					<label htmlFor="password">Password: </label>
