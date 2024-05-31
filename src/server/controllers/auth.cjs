@@ -6,20 +6,34 @@ const {
 } = require("../errors/index.cjs");
 
 const register = async (req, res) => {
-	console.log(req.body);
-	const user = await User.create({ ...req.body });
-	const token = user.createJWT();
+	const { email } = req.body;
 
-	res.status(StatusCodes.CREATED).json({
-		user: {
-			name: user.name,
-		},
-		token,
-	});
+	let user = await User.findOne({ email });
+	if (user) {
+		throw new BadRequestError("Email already exists");
+	}
+	user = await User.create({ ...req.body });
+	const token = user.createJWT();
+	res
+		.cookie("access_token", token, {
+			httpOnly: true,
+			// TODO: create NODE_ENV at deployment
+			secure: process.env.NODE_ENV === "production",
+		})
+		.status(StatusCodes.CREATED)
+		.json({ msg: "user logged in", userId: user._id });
+
+	// .json({
+	// 	user: {
+	// 		name: user.name,
+	// 	},
+	// 	token,
+	// });
 };
 
 const login = async (req, res) => {
 	const { email, password } = req.body;
+
 	if (!email || !password) {
 		throw new BadRequestError("please provide email and password");
 	}
@@ -34,12 +48,32 @@ const login = async (req, res) => {
 	}
 
 	const token = user.createJWT();
-	res.status(StatusCodes.OK).json({
-		user: {
-			name: user.name,
-		},
-		token,
-	});
+	// res.status(StatusCodes.OK).json({
+	// 	user: {
+	// 		name: user.name,
+	// 	},
+	// 	token,
+	// });
+	res
+		.cookie("access_token", token, {
+			httpOnly: true,
+			// TODO: create NODE_ENV at deployment
+			// secure: process.env.NODE_ENV === "production",
+		})
+		.status(StatusCodes.OK)
+		.json({ msg: "user logged in", userId: user._id });
 };
 
-module.exports = { login, register };
+const logout = (req, res) => {
+	req.session.destroy((err) => {
+		if (err) {
+			return res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+		}
+	});
+	res
+		.clearCookie("access_token")
+		.status(StatusCodes.OK)
+		.json({ msg: "User logged out and cookie cleared" });
+};
+
+module.exports = { login, register, logout };

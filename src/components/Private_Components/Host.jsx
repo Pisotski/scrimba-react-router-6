@@ -1,8 +1,11 @@
 import { Navigate, Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { decode } from "../../helpers";
 import { Navbar } from "../Reusable_Components/Navbar";
+import Cookies from "js-cookie";
 
-const loader = () => {
+const loader = async () => {
+	const cookieExists = Cookies.get("your_cookie_name") !== undefined;
+	console.log(cookieExists);
 	return localStorage.getItem("JWT");
 };
 
@@ -30,16 +33,17 @@ const Host = () => {
 			label: "Reviews",
 		},
 	];
-	return JWT ? (
-		<>
-			<div className="header private">
-				<Navbar links={links} isPrivate={true} />
-			</div>
-			<Outlet />
-		</>
-	) : (
-		<Navigate to="/auth" />
-	);
+	// TODO: doublecheck if cookie exists
+	// return JWT ? (
+	<>
+		<div className="header private">
+			<Navbar links={links} isPrivate={true} />
+		</div>
+		<Outlet />
+	</>;
+	// ) : (
+	// 	<Navigate to="/auth" />
+	// );
 };
 
 export { Host, loader };

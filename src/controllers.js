@@ -1,4 +1,6 @@
 import { code } from "./helpers";
+import api from "./utils/api";
+
 import {
 	monthsPassedThisYear,
 	transformDataForGraph,
@@ -203,35 +205,44 @@ const updateRecord = async (id, obj) => {
 	}
 };
 
-const login = async (credentials) => {
-	const { login, password } = credentials;
-	// const [{ id, fields }] = allUsers.records.filter(
-	// 	(el) => el.fields.login === login && el.fields.password === password
-	// );
+const authorize = async () => {
+	//include cookie in the request
 	try {
-		const response = await axios.post(
-			`${url_main}${url_auth}/login`,
-			credentials,
+		const response = await axios.get(
+			`${url_main}${url_auth}/authorize`,
 			headers
 		);
-		console.log(response);
+		return response.data.userId;
 	} catch (error) {
 		console.error(error);
 	}
+};
 
-	return { ...fields, id };
+const login = async (credentials) => {
+	// const { login, password } = credentials;
+	// const [{ id, fields }] = allUsers.records.filter(
+	// 	(el) => el.fields.login === login && el.fields.password === password
+	// );
+	const url = `${url_main}${url_auth}/login`;
+
+	try {
+		const response = await api.post(url, credentials, headers);
+		console.log(response);
+		return response.data.userId;
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 const register = async (credentials) => {
 	try {
-		const response = await axios.post(
+		const response = await api.post(
 			`${url_main}${url_auth}/register`,
 			credentials,
 			headers
 		);
-
-		console.log(response);
 		console.log(`new user ${credentials.name} created`);
+		return response.data.userId;
 	} catch (err) {
 		console.log(err);
 	}
@@ -267,6 +278,7 @@ export {
 	postVans,
 	postIncome,
 	updateRecord,
+	authorize,
 	login,
 	register,
 	populateIncomeTab,

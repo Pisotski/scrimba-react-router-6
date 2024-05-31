@@ -3,13 +3,11 @@ import { isValid } from "../../helpers";
 import { login } from "../../controllers";
 
 const action = async ({ request }) => {
-	localStorage.clear();
+	// localStorage.clear();
 	const formData = await request.formData();
 	const credentials = Object.fromEntries(formData);
-	if (!isValid(credentials)) throw new Error("invalid credentials");
-	const { JWT, id } = await login(credentials);
-	if (!JWT) throw new Error("no token");
-	localStorage.setItem("JWT", JWT);
+	// if (!isValid(credentials)) throw new Error("invalid credentials React");
+	const id = await login(credentials);
 	return redirect(`/host/${id}`);
 };
 
