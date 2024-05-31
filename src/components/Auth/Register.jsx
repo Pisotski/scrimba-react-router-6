@@ -3,12 +3,9 @@ import { isValid } from "../../helpers";
 import { register } from "../../controllers";
 
 const action = async ({ request }) => {
-	localStorage.clear();
 	const formData = await request.formData();
 	const credentials = Object.fromEntries(formData);
-	const { JWT, id } = await register(credentials);
-	if (!JWT) throw new Error("user not found or credentials are incorrect");
-	localStorage.setItem("JWT", JWT);
+	const id = await register(credentials);
 	return redirect(`/host/${id}`);
 };
 

@@ -227,7 +227,6 @@ const login = async (credentials) => {
 
 	try {
 		const response = await api.post(url, credentials, headers);
-		console.log(response);
 		return response.data.userId;
 	} catch (error) {
 		console.error(error);
