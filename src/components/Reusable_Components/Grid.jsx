@@ -8,12 +8,13 @@ const Grid = ({ vans, children }) => {
 		<>
 			{children}
 			<div className="grid">
-				{vans.map(({ id, fields: { name, type, price, imageUrl } }) => {
-					const path = location.pathname.includes(`host`) ? `vans/${id}` : id;
+				{vans.map(({ _id, name, type, price, imageUrl }) => {
+					const path = location.pathname.includes(`host`) ? `vans/${_id}` : _id;
+
 					return (
 						<NavLink
 							to={path}
-							key={id}
+							key={_id}
 							// TODO: Apply loading class
 							//
 							// className={({ isActive, isPending }) =>

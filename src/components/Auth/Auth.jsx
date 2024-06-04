@@ -1,7 +1,6 @@
 import { decode } from "../../helpers.js";
 import { Outlet, redirect } from "react-router-dom";
 import { authorize } from "../../controllers.js";
-import Cookies from "js-cookie";
 
 const loader = ({ params }) => {
 	// TODO: if cookie exists, send it to server

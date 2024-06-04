@@ -1,15 +1,22 @@
 const cors = require("cors");
 
-const corsOptions = {
+const authCorsOptions = {
 	origin: "http://localhost:5173",
 	credentials: true,
 };
 
+const vansCorsOptions = {
+	origin: "http://localhost:5173",
+	credentials: false,
+};
+
 const customCors = (req, res, next) => {
 	if (req.originalUrl.startsWith("/api/v1/auth")) {
-		cors(corsOptions)(req, res, next);
+		cors(authCorsOptions)(req, res, next);
+	} else if (req.originalUrl.startsWith("/api/v1/vans")) {
+		cors(vansCorsOptions)(req, res, next);
 	} else {
-		cors()(req, res, next);
+		next();
 	}
 };
 

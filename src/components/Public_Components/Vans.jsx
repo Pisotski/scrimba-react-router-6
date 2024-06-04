@@ -5,26 +5,29 @@ import { getAllVans } from "../../controllers";
 import { OptionButtonsBar } from "../Reusable_Components/OptionButtonsBar";
 import("../../assets/Vans.css");
 
-// to push more vans to db
+// to push more vans to airtable
 // import { vansDataNoId } from "../../../mockData";
 // vansDataNoId.map((van) => postVans({ fields: van }));
 
 const loader = async ({ params, request }) => {
-	const data = await getAllVans();
+	const { allVans } = await getAllVans();
 	const { userId } = params;
 	const url = new URL(request.url);
 	const type = url.searchParams.get("filter");
-	return { records: data.records, type, userId };
+	return { allVans, type, userId };
 };
 
 const Vans = ({ data }) => {
-	const { records, type } = useLoaderData();
+	const { allVans, type } = useLoaderData();
+
 	const [searchParams, setSearchParams] = useSearchParams();
 	const location = useLocation();
 	const header = location.state?.header || "Explore our van options";
-	const vansData = records || data || [];
+	const vansData = allVans || data || [];
+
 	const filteredVans = (filterBy) =>
-		vansData.filter((van) => filterBy === van.fields.type);
+		vansData.filter((van) => filterBy === van.type);
+
 	const [vans, setVans] = useState(
 		type !== null || undefined ? filteredVans(type) : vansData
 	);

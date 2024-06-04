@@ -1,24 +1,18 @@
 import { VansSnippetsList } from "../Reusable_Components/VansSnippetsList.jsx";
-import { getVansByUser } from "../../controllers";
-import {
-	Link,
-	useLoaderData,
-	useLocation,
-	useSearchParams,
-} from "react-router-dom";
+import { getAllVansForUser } from "../../controllers";
+import { useLoaderData } from "react-router-dom";
 import "../../assets/Dashboard.css";
 
 const loader = async ({ params }) => {
 	const { userId } = params;
-	const data = await getVansByUser(userId, 3);
-	return data.records;
+	const vansListPreview = await getAllVansForUser();
+	return vansListPreview || [];
 };
 
 const Dashboard = () => {
 	const income = 1234;
 	const score = 5;
 	const vansListPreview = useLoaderData();
-
 	return (
 		<div className="wrapper dashboard">
 			<section className="wrapper welcome">

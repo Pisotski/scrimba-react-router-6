@@ -5,7 +5,7 @@ import {
 	useLocation,
 	Outlet,
 } from "react-router-dom";
-import { getVan } from "../../controllers";
+import { getVanById } from "../../controllers";
 import { titleCase } from "../../helpers";
 import { Navbar } from "./Navbar";
 import "../../assets/VanDescription.css";
@@ -13,16 +13,17 @@ import "../../assets/VanDescription.css";
 // Separate loader here is done intentionally since not all data should be loaded on vans preview /vans
 const loader = async ({ params }) => {
 	const { vanId, userId } = params;
-	const data = await getVan(vanId);
-	return { data: data.fields, userId };
+	const { van } = await getVanById(vanId);
+	return { van, userId };
 };
 
 const VanDescription = () => {
-	const data = useLoaderData().data;
-	const { name, price, description, imageUrl, type } = data;
+	const { van } = useLoaderData();
+	const { name, price, description, imageUrl, type } = van;
+
 	const location = useLocation();
 	const isPrivate = location.pathname.includes("host");
-	location.state = { ...location.state, data };
+	location.state = { ...location.state, van };
 
 	let backToVansLink = isPrivate ? location.state.from : -1;
 

@@ -22,13 +22,6 @@ const register = async (req, res) => {
 		})
 		.status(StatusCodes.CREATED)
 		.json({ msg: "user logged in", userId: user._id });
-
-	// .json({
-	// 	user: {
-	// 		name: user.name,
-	// 	},
-	// 	token,
-	// });
 };
 
 const login = async (req, res) => {
@@ -48,17 +41,11 @@ const login = async (req, res) => {
 	}
 
 	const token = user.createJWT();
-	// res.status(StatusCodes.OK).json({
-	// 	user: {
-	// 		name: user.name,
-	// 	},
-	// 	token,
-	// });
 	res
 		.cookie("access_token", token, {
 			httpOnly: true,
 			// TODO: create NODE_ENV at deployment
-			// secure: process.env.NODE_ENV === "production",
+			secure: process.env.NODE_ENV === "production",
 		})
 		.status(StatusCodes.OK)
 		.json({ msg: "user logged in", userId: user._id });

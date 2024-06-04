@@ -1,11 +1,11 @@
 import { Form, Link, redirect } from "react-router-dom";
-import { isValid } from "../../helpers";
 import { login } from "../../controllers";
 
 const action = async ({ request }) => {
 	const formData = await request.formData();
 	const credentials = Object.fromEntries(formData);
 	const id = await login(credentials);
+	console.log(id);
 	return redirect(`/host/${id}`);
 };
 

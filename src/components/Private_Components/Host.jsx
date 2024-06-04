@@ -1,49 +1,43 @@
-import { Navigate, Outlet, useLoaderData, useLocation } from "react-router-dom";
-import { decode } from "../../helpers";
+import { Outlet, useLoaderData } from "react-router-dom";
 import { Navbar } from "../Reusable_Components/Navbar";
-import Cookies from "js-cookie";
 
-const loader = async () => {
-	const cookieExists = Cookies.get("your_cookie_name") !== undefined;
-	console.log(cookieExists);
-	return localStorage.getItem("JWT");
+const loader = async ({ params }) => {
+	const { userId } = params;
+	return userId;
 };
 
 const Host = () => {
-	const JWT = useLoaderData();
-	const { id } = decode(JWT);
+	const userId = useLoaderData();
 	const links = [
 		{
-			path: `${id}`,
+			path: `${userId}`,
 			label: "Dashboard",
 		},
 		{
-			path: `${id}/income`,
+			path: `${userId}/income`,
 			label: "Income",
 		},
 		{
-			path: `${id}/vans`,
+			path: `${userId}/vans`,
 			label: "Vans",
 			props: {
 				isPrivate: true,
 			},
 		},
 		{
-			path: `${id}/reviews`,
+			path: `${userId}/reviews`,
 			label: "Reviews",
 		},
 	];
-	// TODO: doublecheck if cookie exists
-	// return JWT ? (
-	<>
-		<div className="header private">
-			<Navbar links={links} isPrivate={true} />
-		</div>
-		<Outlet />
-	</>;
-	// ) : (
-	// 	<Navigate to="/auth" />
-	// );
+	// TODO: create Authprovider? embed protected routes
+	return (
+		<>
+			<div className="header private">
+				<Navbar links={links} isPrivate={true} />
+			</div>
+			<Outlet />
+		</>
+	);
 };
 
 export { Host, loader };

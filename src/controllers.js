@@ -1,13 +1,12 @@
+import axios from "axios";
 import { code } from "./helpers";
 import api from "./utils/api";
-
 import {
 	monthsPassedThisYear,
 	transformDataForGraph,
 	generateData,
 	generateReviews,
 } from "./generators";
-import axios from "axios";
 
 const url_vans = `https://api.airtable.com/v0/${
 	import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -31,44 +30,73 @@ const headers = {
 };
 
 const url_main = `http://localhost:${import.meta.env.VITE_PORT}/api/v1`;
+const url_public = `${url_main}/vans`;
 const url_auth = `/auth`;
+const url_private = `${url_main}${url_auth}`;
+
+const login = async (credentials) => {
+	const url = `${url_main}${url_auth}/login`;
+	try {
+		const response = await api.post(url, credentials, headers);
+		return response.data.userId;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+const register = async (credentials) => {
+	try {
+		const response = await api.post(
+			`${url_main}${url_auth}/register`,
+			credentials,
+			headers
+		);
+		console.log(`new user ${credentials.name} created`);
+		return response.data.userId;
+	} catch (err) {
+		console.log(err);
+	}
+};
 
 const getAllVans = async () => {
 	try {
-		const response = await fetch(url_vans, { headers });
-		if (!response.ok) throw new Error(`Error: ${response.status}`);
-
-		const result = await response.json();
-		return result;
+		const response = await axios.get(url_public, { headers });
+		return response.data;
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-const getAllUsers = async () => {
+const getAllVansForUser = async () => {
+	//TODO: incorrect endpoint
 	try {
-		const response = await fetch(`${url_users}`, {
-			headers,
-		});
-		if (!response.ok) throw new Error(`Error: ${response.status}`);
-		const result = await response.json();
-		return result;
+		const response = await api.get(`/vans`);
+
+		return response.data;
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-const getVan = async (id) => {
-	const newUrl = `${url_vans}/${id}`;
+const getVanById = async (id) => {
+	const newUrl = `${url_public}/${id}`;
 	try {
-		const response = await fetch(newUrl, { headers });
-		if (!response.ok) throw new Error(`Error: ${response.status}`);
-		const result = await response.json();
-		return result;
+		const response = await axios.get(newUrl, { headers });
+		return response.data;
 	} catch (err) {
 		console.log(err);
 	}
 };
+
+const getIncomeLast4Months = async () => {
+	try {
+		const response = await api.get("/vans/income", { headers });
+		return response.data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+/////////////////////////////AIRTABLE CONTROLLERS OLD
 
 const getVansByUser = async (userId, pageSize) => {
 	const newUrl = `${url_vans}?pageSize=${pageSize}`;
@@ -114,7 +142,7 @@ const getAllReviewsForUser = async (userId) => {
 	const newUrl = `${url_reviews}`;
 	try {
 		// get all reviews filter them by vanId and userId
-		// technically there should not be a case that 2 vans with the same id exists,
+		// technically there should not be a case where 2 vans with the same id exists,
 		const response = await fetch(newUrl, { headers });
 		if (!response.ok) throw new Error(`Error: ${response.status}`);
 		const result = await response.json();
@@ -218,44 +246,6 @@ const authorize = async () => {
 	}
 };
 
-const login = async (credentials) => {
-	// const { login, password } = credentials;
-	// const [{ id, fields }] = allUsers.records.filter(
-	// 	(el) => el.fields.login === login && el.fields.password === password
-	// );
-	const url = `${url_main}${url_auth}/login`;
-
-	try {
-		const response = await api.post(url, credentials, headers);
-		return response.data.userId;
-	} catch (error) {
-		console.error(error);
-	}
-};
-
-const register = async (credentials) => {
-	try {
-		const response = await api.post(
-			`${url_main}${url_auth}/register`,
-			credentials,
-			headers
-		);
-		console.log(`new user ${credentials.name} created`);
-		return response.data.userId;
-	} catch (err) {
-		console.log(err);
-	}
-};
-
-const populateIncomeTab = async (userId, reviewsCount) => {
-	const generatedData = generateData(userId, reviewsCount);
-	for (const element of generatedData) {
-		await postIncome(element);
-		await new Promise((resolve) => setTimeout(resolve, 50));
-	}
-	console.log(`income tab updated`);
-};
-
 const populateReviewsTab = async (number, userId) => {
 	const generatedData = generateReviews(number, userId);
 
@@ -266,8 +256,10 @@ const populateReviewsTab = async (number, userId) => {
 };
 
 export {
+	getIncomeLast4Months,
+	getAllVansForUser,
 	getAllVans,
-	getVan,
+	getVanById,
 	getVansByUser,
 	getVanIdPhotos,
 	getIncomeThisYear,
@@ -280,6 +272,5 @@ export {
 	authorize,
 	login,
 	register,
-	populateIncomeTab,
 	populateReviewsTab,
 };
