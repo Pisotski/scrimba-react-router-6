@@ -26,7 +26,6 @@ const options = {
 			maxBarThickness: 5,
 		},
 		x: {
-			maxBarThickness: 10,
 			barThickness: 5,
 			maxBarThickness: 5,
 			categoryPercentage: 0.4,
