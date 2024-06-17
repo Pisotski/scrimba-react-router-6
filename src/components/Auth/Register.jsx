@@ -1,14 +1,13 @@
 import { Form, Link, redirect } from "react-router-dom";
 import { isValid } from "../../helpers";
-import { register } from "../../controllers";
+import { register, setAuthCookie } from "../../controllers";
 
 const action = async ({ request }) => {
 	const formData = await request.formData();
 	const credentials = Object.fromEntries(formData);
-	const id = await register(credentials);
-
-	return null;
-	// return redirect(`/host/${id}`);
+	const result = await register(credentials);
+	if (result) setAuthCookie(result);
+	return redirect("/auth");
 };
 
 const Register = () => {

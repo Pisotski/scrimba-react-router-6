@@ -16,10 +16,15 @@ const register = async (req, res) => {
 	const token = user.createJWT();
 	req.session.user = { id: user._id, username: user.name };
 	console.log(`${user.name} logged in`.green);
-
+	console.log(user._id);
 	res
+		.cookie("access_token", token, {
+			secure: true,
+			httpOnly: true,
+			sameSite: "None",
+		})
 		.status(StatusCodes.CREATED)
-		.json({ msg: "user logged in", userId: user._id, token });
+		.json({ msg: "user logged in", userId: user._id });
 };
 
 const login = async (req, res) => {

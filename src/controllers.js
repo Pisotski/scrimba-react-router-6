@@ -48,19 +48,20 @@ const login = async (credentials) => {
 
 const register = async (credentials) => {
 	try {
-		const { userId, token } = await api.post(
+		const result = await api.post(
 			`${url_main}${url_auth}/register`,
 			credentials,
 			headers
 		);
 		console.log(`new user ${credentials.name} created`);
-		return { userId, token };
+		return result.data.userId;
 	} catch (err) {
 		console.log(err);
 	}
 };
 
 const setAuthCookie = (userId) => {
+	console.log(userId);
 	Cookies.set("isAuthorized", true, { expires: 7, path: "/" });
 	localStorage.setItem("userId", userId);
 	return;
@@ -68,7 +69,6 @@ const setAuthCookie = (userId) => {
 
 const logout = async () => {
 	const url = `${url_main}${url_auth}/logout`;
-	console.log("hey");
 	try {
 		const result = await axios.get(url, headers);
 		Cookies.remove("isAuthorized");
