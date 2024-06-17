@@ -14,7 +14,7 @@ const action = async ({ request, params }) => {
 
 const VanPricing = () => {
 	const location = useLocation();
-	const vanInfo = location.state.data;
+	const vanInfo = location.state.van;
 
 	return (
 		<InputWithLabel

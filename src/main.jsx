@@ -21,6 +21,7 @@ import {
 } from "./components/Reusable_Components/VanDescription.jsx";
 import { Auth, loader as authLoader } from "./components/Auth/Auth.jsx";
 import { Login, action as loginAction } from "./components/Auth/Login.jsx";
+import { loader as logoutLoader } from "./components/Auth/Logout.jsx";
 import {
 	Register,
 	action as registerAction,
@@ -87,6 +88,7 @@ const router = createBrowserRouter([
 								element: <Register />,
 								action: registerAction,
 							},
+							{ path: "logout", loader: logoutLoader },
 						],
 					},
 					{
@@ -99,6 +101,7 @@ const router = createBrowserRouter([
 						element: <VanDescription />,
 						loader: vanDescriptionLoader,
 					},
+					// Protected routes
 					{
 						path: "host",
 						element: <Host />,

@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+
 import { code } from "./helpers";
 import api from "./utils/api";
 import {
@@ -37,8 +39,8 @@ const url_private = `${url_main}${url_auth}`;
 const login = async (credentials) => {
 	const url = `${url_main}${url_auth}/login`;
 	try {
-		const response = await api.post(url, credentials, headers);
-		return response.data.userId;
+		const result = await api.post(url, credentials, headers);
+		return result.data.userId;
 	} catch (error) {
 		console.error(error);
 	}
@@ -46,15 +48,34 @@ const login = async (credentials) => {
 
 const register = async (credentials) => {
 	try {
-		const response = await api.post(
+		const { userId, token } = await api.post(
 			`${url_main}${url_auth}/register`,
 			credentials,
 			headers
 		);
 		console.log(`new user ${credentials.name} created`);
-		return response.data.userId;
+		return { userId, token };
 	} catch (err) {
 		console.log(err);
+	}
+};
+
+const setAuthCookie = (userId) => {
+	Cookies.set("isAuthorized", true, { expires: 7, path: "/" });
+	localStorage.setItem("userId", userId);
+	return;
+};
+
+const logout = async () => {
+	const url = `${url_main}${url_auth}/logout`;
+	console.log("hey");
+	try {
+		const result = await axios.get(url, headers);
+		Cookies.remove("isAuthorized");
+		localStorage.removeItem("userId");
+		return result;
+	} catch (error) {
+		console.error(error);
 	}
 };
 
@@ -271,6 +292,8 @@ export {
 	updateRecord,
 	authorize,
 	login,
+	logout,
 	register,
+	setAuthCookie,
 	populateReviewsTab,
 };

@@ -3,7 +3,7 @@ import { Navbar } from "../Reusable_Components/Navbar";
 
 const loader = async ({ params }) => {
 	const { userId } = params;
-	return userId;
+	return userId || null;
 };
 
 const Host = () => {
@@ -28,8 +28,12 @@ const Host = () => {
 			path: `${userId}/reviews`,
 			label: "Reviews",
 		},
+		{
+			path: `/auth/logout`,
+			label: "Logout",
+		},
 	];
-	// TODO: create Authprovider? embed protected routes
+	// TODO: create if user logged in display routes?
 	return (
 		<>
 			<div className="header private">

@@ -6,7 +6,9 @@ const action = async ({ request }) => {
 	const formData = await request.formData();
 	const credentials = Object.fromEntries(formData);
 	const id = await register(credentials);
-	return redirect(`/host/${id}`);
+
+	return null;
+	// return redirect(`/host/${id}`);
 };
 
 const Register = () => {

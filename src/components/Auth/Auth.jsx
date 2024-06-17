@@ -1,10 +1,12 @@
 import { Outlet, redirect } from "react-router-dom";
-import { useContext } from "react";
+import Cookies from "js-cookie";
 
 const loader = () => {
-	const { auth } = useContext(AuthContext);
-	if (!auth.isAuthenticated) {
-		return redirect("/auth");
+	const isAuthorized = Cookies.get("isAuthorized");
+	if (isAuthorized) {
+		const userId = localStorage.getItem("userId");
+		if (!userId) Cookies.remove("isAuthorized");
+		return redirect(`/host/${userId}`);
 	}
 	return null;
 };
