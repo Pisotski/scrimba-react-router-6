@@ -1,5 +1,4 @@
 import { Form, Link, redirect } from "react-router-dom";
-import { isValid } from "../../helpers";
 import { register, setAuthCookie } from "../../controllers";
 
 const action = async ({ request }) => {

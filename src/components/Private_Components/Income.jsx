@@ -1,7 +1,8 @@
-import { getIncomeLast4Months } from "../../controllers";
+import { getIncome } from "../../controllers";
+import { MMDDYYFormat } from "../../helpers";
 
 import { useLoaderData } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "../../assets/Income.css";
 
 import {
@@ -12,10 +13,11 @@ import {
 	Title,
 	Tooltip,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, getElementsAtEvent } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
-
+const mango = "rgb(255,140,56)";
+const peach = "rgb(255,234,208)";
 const options = {
 	responsive: true,
 	maintainAspectRatio: false,
@@ -34,32 +36,77 @@ const options = {
 };
 
 const loader = async ({ params }) => {
-	const data = await getIncomeLast4Months();
-	return data.income;
+	const data = await getIncome();
+	return data;
 };
 
 const Income = () => {
-	const income = useLoaderData();
-	const labels = Object.keys(income);
-	console.log(income);
+	const { incomeLast30Days, incomeLast4Months } = useLoaderData();
+	const [incomeToDisplay, setIncomeToDisplay] = useState(incomeLast30Days);
+	const [backgroundColor, setBackgroundColor] = useState([
+		peach,
+		peach,
+		mango,
+		mango,
+	]);
+	const chartRef = useRef(null);
+
+	const handleBarClick = (event) => {
+		const element = getElementsAtEvent(chartRef.current, event);
+		if (element.length) {
+			const dataPoint = element[0].index;
+			const month = data.labels[dataPoint];
+			setBackgroundColor(
+				backgroundColor.map((color, index) => {
+					if (index === dataPoint) return mango;
+					return peach;
+				})
+			);
+			setIncomeToDisplay(incomeLast4Months[month]);
+		}
+	};
 	const data = {
-		labels,
+		labels: Object.keys(incomeLast4Months),
 		datasets: [
 			{
-				data: Object.values(income).map((inc) =>
-					inc.reduce(
-						(accumulator, currentValue) => accumulator + currentValue,
+				data: Object.values(incomeLast4Months).map((transactions) =>
+					transactions.reduce(
+						(total, currentTransaction) =>
+							total + currentTransaction.transactionAmount,
 						0
 					)
 				),
-				backgroundColor: "rgba(255, 99, 132, 0.5)",
+				backgroundColor,
 			},
 		],
 	};
+
 	return (
-		<div style={{ width: "100%", height: "300px" }}>
-			<Bar data={data} options={options} />
-		</div>
+		// FIXME: remove inline styling
+		<>
+			<section style={{ width: "100%", height: "300px" }}>
+				<Bar
+					data={data}
+					options={options}
+					ref={chartRef}
+					onClick={handleBarClick}
+				/>
+			</section>
+			<section>
+				<ul>
+					<label>
+						Your transactions ({incomeToDisplay.length})
+						<span>last 30 days</span>{" "}
+					</label>
+					{incomeToDisplay.map((transaction) => (
+						<li key={transaction._id}>
+							<span>${transaction.transactionAmount}</span>
+							<span>{MMDDYYFormat(transaction.date)}</span>
+						</li>
+					))}
+				</ul>
+			</section>
+		</>
 	);
 };
 

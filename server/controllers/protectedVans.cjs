@@ -6,14 +6,41 @@ const {
 	UnauthenticatedError,
 } = require("../errors/index.cjs");
 const { sortIncomeByMonth } = require("../helpers/incomeByMonth.cjs");
+
 const getAllVansForUser = async (req, res) => {
 	const { userId } = req.user;
-	const allVans = await Van.find({ createdBy: userId });
+	const { limit } = req.query;
+	const query = Van.find({ createdBy: userId });
+	if (limit !== undefined) {
+		query.limit(limit);
+	}
+	const allVans = await query;
 	res.status(StatusCodes.OK).json(allVans);
 };
-const getVanById = async (req, res) => {};
 
-const updateVan = async () => {};
+const getVanById = async (req, res) => {
+	const { vanId } = req.params;
+	const { userId } = req.user;
+	const queryObject = { createdBy: userId, _id: vanId };
+	const van = await Van.findById(queryObject);
+	if (!van) throw new NotFoundError("van not found");
+	res.status(StatusCodes.OK).json({ van });
+};
+
+const updateVan = async (req, res) => {
+	const { vanId } = req.params;
+	const { userId } = req.user;
+
+	if (!req.body) throw new BadRequestError("nothing to update");
+
+	const queryObject = { createdBy: userId, _id: vanId };
+	const van = await Van.findOneAndUpdate(queryObject, req.body, {
+		new: true,
+		runValidators: true,
+	});
+	if (!van) throw new NotFoundError("van not found");
+	res.status(StatusCodes.OK).json({ updatedVan: van });
+};
 
 const createVan = async (req, res) => {
 	const { body } = req;
@@ -24,41 +51,37 @@ const createVan = async (req, res) => {
 	res.status(StatusCodes.CREATED).json({ van });
 };
 
-const getIncomeLast30Days = async (req, res) => {
-	const { userId } = req.user;
+const getIncomeLastXPeriod = async (userId, startDate) => {
 	try {
-		const startDate = new Date();
-		startDate.setDate(startDate.getDate() - 30);
-
-		const incomes = await Income.find({
-			userId: userId,
-			date: {
-				$gte: startDate,
-				$lte: new Date(),
-			},
-		});
-		res.status(StatusCodes.OK).json({ incomes });
-	} catch (error) {
-		console.error("Error filtering income:", error);
-		return [];
-	}
-};
-
-const getIncomeLast4Months = async (req, res) => {
-	const { userId } = req.user;
-	try {
-		const startDate = new Date();
-		startDate.setMonth(startDate.getMonth() - 3);
-
-		const incomes = await Income.find({
+		const income = await Income.find({
 			createdBy: userId,
 			date: {
 				$gte: startDate,
 				$lte: new Date(),
 			},
 		});
-		const income = sortIncomeByMonth(incomes);
-		res.status(StatusCodes.OK).json({ income });
+		return income;
+	} catch (error) {
+		console.error("Error fetching income entries:", error);
+		return [];
+	}
+};
+
+const getUserIncome = async (req, res) => {
+	const { userId } = req.user;
+	const monthsAgo = new Date();
+	monthsAgo.setMonth(monthsAgo.getMonth() - 3);
+	const daysAgo = new Date();
+	daysAgo.setDate(daysAgo.getDate() - 30);
+	try {
+		const [incomeLast30Days, incomeLast4Months] = await Promise.all([
+			getIncomeLastXPeriod(userId, daysAgo),
+			getIncomeLastXPeriod(userId, monthsAgo),
+		]);
+		res.status(StatusCodes.OK).json({
+			incomeLast30Days,
+			incomeLast4Months: sortIncomeByMonth(incomeLast4Months),
+		});
 	} catch (error) {
 		console.error("Error fetching income entries:", error);
 		return [];
@@ -68,8 +91,7 @@ const getIncomeLast4Months = async (req, res) => {
 module.exports = {
 	getAllVansForUser,
 	createVan,
-	getIncomeLast4Months,
-	getIncomeLast30Days,
+	getUserIncome,
 	getVanById,
 	updateVan,
 };

@@ -16,7 +16,6 @@ const register = async (req, res) => {
 	const token = user.createJWT();
 	req.session.user = { id: user._id, username: user.name };
 	console.log(`${user.name} logged in`.green);
-	console.log(user._id);
 	res
 		.cookie("access_token", token, {
 			secure: true,

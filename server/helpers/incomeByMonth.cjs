@@ -1,9 +1,9 @@
 const sortIncomeByMonth = (incomes) => {
-	const monthlyIncome = getPastNMonthNames(5);
+	const monthlyIncome = getPastNMonthNames(4);
 	for (const transaction of incomes) {
 		const date = new Date(transaction.date);
 		const month = date.toLocaleString("en", { month: "long" });
-		monthlyIncome[month].push(transaction.transactionAmount);
+		monthlyIncome[month].push(transaction);
 	}
 	return monthlyIncome;
 };
@@ -13,7 +13,7 @@ const getPastNMonthNames = (n) => {
 	let currentMonth = currentDate.getMonth();
 	const currentYear = currentDate.getFullYear();
 
-	let startingMonth = currentMonth - 4;
+	let startingMonth = currentMonth - 3;
 
 	let startingYear = currentYear;
 	if (startingMonth < 0) {
@@ -36,9 +36,9 @@ const getPastNMonthNames = (n) => {
 		"December",
 	];
 
-	const lastFiveMonths = [];
-	for (let i = 0; i < 5; i++) {
-		lastFiveMonths.push(monthNames[startingMonth]);
+	const lastXMonths = [];
+	for (let i = 0; i < n; i++) {
+		lastXMonths.push(monthNames[startingMonth]);
 		startingMonth = (startingMonth + 1) % 12;
 		if (startingMonth === 0) {
 			startingYear++;
@@ -46,7 +46,7 @@ const getPastNMonthNames = (n) => {
 	}
 
 	const months = {};
-	for (const mon of lastFiveMonths) {
+	for (const mon of lastXMonths) {
 		months[mon] = [];
 	}
 

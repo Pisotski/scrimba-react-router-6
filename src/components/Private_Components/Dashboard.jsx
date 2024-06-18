@@ -1,18 +1,25 @@
 import { VansSnippetsList } from "../Reusable_Components/VansSnippetsList.jsx";
-import { getAllVansForUser } from "../../controllers";
+import { getAllVansForUser, getIncome } from "../../controllers";
 import { useLoaderData } from "react-router-dom";
 import "../../assets/Dashboard.css";
 
 const loader = async ({ params }) => {
 	const { userId } = params;
-	const vansListPreview = await getAllVansForUser();
-	return vansListPreview || [];
+	const [vansListPreview, income] = await Promise.all([
+		getAllVansForUser(3),
+		getIncome(),
+	]);
+	const incomeTotal = income.incomeLast30Days.reduce((total, transaction) => {
+		return total + transaction.transactionAmount;
+	}, 0);
+
+	return [vansListPreview || [], incomeTotal];
 };
 
 const Dashboard = () => {
-	const income = 1234;
 	const score = 5;
-	const vansListPreview = useLoaderData();
+	const [vansListPreview, income] = useLoaderData();
+
 	return (
 		<div className="wrapper dashboard">
 			<section className="wrapper welcome">
@@ -35,16 +42,6 @@ const Dashboard = () => {
 				</div>
 			</section>
 			<section>
-				{/* <Grid vans={vansPreview} fromDashboard={true}>
-					<div className="space-between">
-						<h2>Your listed vans</h2>
-						<span className="smallest-font">
-							<Link to="vans" state={{ header: "Your listed vans" }}>
-								View all
-							</Link>
-						</span>
-					</div>
-				</Grid> */}
 				<VansSnippetsList vans={vansListPreview}></VansSnippetsList>
 			</section>
 		</div>

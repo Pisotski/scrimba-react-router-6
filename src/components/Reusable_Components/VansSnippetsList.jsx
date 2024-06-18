@@ -7,8 +7,8 @@ const loader = async () => {
 	return vans;
 };
 
-const VansSnippetsList = ({ vansListPreview }) => {
-	const vansList = vansListPreview || useLoaderData();
+const VansSnippetsList = ({ vans }) => {
+	const vansList = vans || useLoaderData();
 	const location = useLocation();
 	return (
 		<div className="list">

@@ -2,8 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import { getVanIdPhotos } from "../../controllers";
 
 const loader = async ({ params }) => {
-	const { vanId } = params;
-	const photos = getVanIdPhotos(vanId);
+	const photos = await getVanIdPhotos(params);
 	return photos;
 };
 

@@ -2,14 +2,14 @@ import { useLocation } from "react-router-dom";
 import { InputWithLabel } from "../Reusable_Components/InputWithLabel";
 import { SelectWithLabel } from "../Reusable_Components/SelectWithLabel";
 
-import { updateRecord } from "../../controllers";
+import { updateVan } from "../../controllers";
 
 const action = async ({ request, params }) => {
 	const formData = await request.formData();
 	const updates = Object.fromEntries(formData);
 	const { vanId } = params;
-	const response = await updateRecord(vanId, updates);
-	if (response) console.log(`${response.fields.name} van updated`);
+	console.log(params.vanId);
+	updateVan({ vanId, updates });
 	return null;
 };
 

@@ -1,30 +1,17 @@
+const MMDDYYFormat = (dateString) => {
+	const date = new Date(dateString);
+	const month = String(date.getMonth() + 1).padStart(2, "0");
+	const day = String(date.getDate()).padStart(2, "0");
+	const year = String(date.getFullYear()).slice(-2);
+	return `${month}/${day}/${year}`;
+};
+
 const titleCase = (str) => {
 	str = str.toLowerCase().split(" ");
 	for (let i = 0; i < str.length; i++) {
 		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
 	}
 	return str.join(" ");
-};
-
-const isValid = (credentials) => {
-	const { login, password } = credentials;
-	return validateName(login) && validatePassword(password);
-};
-
-const validateName = (str) => {
-	return str && true;
-};
-
-const validatePassword = (str) => {
-	return str && true;
-};
-
-const code = (obj) => {
-	return btoa(JSON.stringify(obj));
-};
-
-const decode = (JWT) => {
-	return JSON.parse(atob(JWT));
 };
 
 const countTotalScore = (data) => {
@@ -45,11 +32,4 @@ const countStarsPercentage = (data) => {
 	return starsNumberPerScore;
 };
 
-export {
-	titleCase,
-	isValid,
-	code,
-	decode,
-	countTotalScore,
-	countStarsPercentage,
-};
+export { titleCase, countTotalScore, countStarsPercentage, MMDDYYFormat };
