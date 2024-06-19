@@ -1,5 +1,9 @@
 const Van = require("../models/Van.cjs");
 const Income = require("../models/Income.cjs");
+const Review = require("../models/Review.cjs");
+const User = require("../models/User.cjs");
+const mongoose = require("mongoose");
+const { generateReviews } = require("../data_generators/generate_reviews.cjs");
 const { StatusCodes } = require("http-status-codes");
 const {
 	BadRequestError,
@@ -88,10 +92,97 @@ const getUserIncome = async (req, res) => {
 	}
 };
 
+const getAllReviews = async (req, res) => {
+	const { userId } = req.user;
+
+	try {
+		let reviews = await Review.find({ owner: userId });
+		if (!reviews.length) {
+			await generateReviews(userId);
+			reviews = await Review.find({ owner: userId });
+		}
+		res.status(StatusCodes.OK).json({
+			reviews,
+		});
+	} catch (error) {
+		console.error("Error fetching income entries:", error);
+		return [];
+	}
+};
+
+const getAverageScoreReviews = async (req, res) => {
+	const { userId } = req.user;
+	try {
+		const averageScore = await Review.aggregate([
+			{
+				$group: {
+					_id: "$owner_id",
+					averageScore: { $avg: "$score" },
+				},
+			},
+			{
+				$lookup: {
+					from: "users",
+					localField: "_id",
+					foreignField: "_id",
+					as: "owner",
+				},
+			},
+			{
+				$project: {
+					_id: 1,
+					averageScore: { $round: ["$averageScore", 1] },
+					owner: { $arrayElemAt: ["$owner", 0] },
+				},
+			},
+		]);
+
+		res.status(StatusCodes.OK).json({
+			averageScore: averageScore[0].averageScore,
+		});
+	} catch (error) {
+		console.error("Error fetching income entries:", error);
+		return [];
+	}
+};
+const getStarBarsData = async (req, res) => {
+	const { userId } = req.user;
+
+	try {
+		const aggregationPipeline = [
+			{ $match: { owner: new mongoose.Types.ObjectId(userId) } },
+			{
+				$group: {
+					_id: "$score",
+					count: { $sum: 1 },
+				},
+			},
+			{ $sort: { _id: 1 } },
+		];
+
+		const results = await Review.aggregate(aggregationPipeline);
+		const starBarsData = {};
+		results.forEach((result) => {
+			starBarsData[result._id] = result.count;
+		});
+		res.status(StatusCodes.OK).json({
+			starBarsData,
+		});
+	} catch (error) {
+		console.error("Error fetching star bars data:", error);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			error: "Error fetching star bars data",
+		});
+	}
+};
+
 module.exports = {
 	getAllVansForUser,
+	getAllReviews,
 	createVan,
 	getUserIncome,
 	getVanById,
 	updateVan,
+	getAverageScoreReviews,
+	getStarBarsData,
 };

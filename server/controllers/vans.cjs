@@ -1,4 +1,5 @@
 const Van = require("../models/Van.cjs");
+const User = require("../models/User.cjs");
 const { StatusCodes } = require("http-status-codes");
 const {
 	BadRequestError,
@@ -13,6 +14,16 @@ const getAllVans = async (req, res) => {
 		throw new BadRequestError(err);
 	}
 };
+
+const getAllUsers = async () => {
+	try {
+		const allUsers = await User.find({});
+		res.status(StatusCodes.OK).json({ allUsers });
+	} catch (err) {
+		throw new BadRequestError(err);
+	}
+};
+
 const createVan = async (req, res) => {
 	const { body } = req;
 	const van = await Van.create({
@@ -32,4 +43,5 @@ module.exports = {
 	getAllVans,
 	createVan,
 	getVanById,
+	getAllUsers,
 };

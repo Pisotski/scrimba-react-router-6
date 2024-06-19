@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import "../../assets/ProgressBar.css";
 
 const ProgressBar = ({ starsAndRatio, onClick }) => {

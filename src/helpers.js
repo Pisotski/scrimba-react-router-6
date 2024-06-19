@@ -6,6 +6,30 @@ const MMDDYYFormat = (dateString) => {
 	return `${month}/${day}/${year}`;
 };
 
+const monthNames = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+
+const monthDDYYYYFormat = (dateString) => {
+	const date = new Date(dateString);
+	const monthIndex = date.getMonth();
+	const month = monthNames[monthIndex];
+	const day = String(date.getDate()).padStart(2, "0");
+	const year = String(date.getFullYear());
+	return `${month} ${day}, ${year}`;
+};
+
 const titleCase = (str) => {
 	str = str.toLowerCase().split(" ");
 	for (let i = 0; i < str.length; i++) {
@@ -14,16 +38,9 @@ const titleCase = (str) => {
 	return str.join(" ");
 };
 
-const countTotalScore = (data) => {
-	const totalStars = data.reduce((memo, el) => {
-		return (memo += el.fields.score);
-	}, 0);
-	return Math.round((totalStars / data.length) * 10) / 10;
-};
-
 const countStarsPercentage = (data) => {
 	const starsNumberPerScore = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-	data.forEach((el) => (starsNumberPerScore[el.fields.score] += 1));
+	data.forEach((el) => (starsNumberPerScore[el.score] += 1));
 	for (const stars in starsNumberPerScore) {
 		starsNumberPerScore[stars] = Math.round(
 			(starsNumberPerScore[stars] / data.length) * 100
@@ -32,4 +49,4 @@ const countStarsPercentage = (data) => {
 	return starsNumberPerScore;
 };
 
-export { titleCase, countTotalScore, countStarsPercentage, MMDDYYFormat };
+export { titleCase, countStarsPercentage, MMDDYYFormat, monthDDYYYYFormat };

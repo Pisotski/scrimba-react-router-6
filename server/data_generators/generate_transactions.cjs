@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Income = require("../models/Income.cjs");
 
 const generateTransactions = async (totalTransactions, userId) => {

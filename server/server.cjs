@@ -79,8 +79,9 @@ app.use(
 	protectedVansRouter
 );
 app.get("*", (_req, res) => {
-	res.sendFile(path.join(__dirname, "app/index.html"));
+	res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
+console.log(__dirname);
 /***************************************/
 /***************************************/
 

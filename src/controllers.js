@@ -1,6 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import api from "./utils/api";
+// api url:
+// http://localhost:${import.meta.env.VITE_PORT}/api/v1/auth
 
 const headers = {
 	// Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
@@ -128,22 +130,41 @@ const getVanIdPhotos = async ({ vanId }) => {
 	}
 };
 
-const getAllReviewsForUser = async () => {};
-const getFilteredReviewsByStars = async () => {};
-const getPageReviews = async () => {};
-const populateReviewsTab = async () => {};
+const getReviewsForUser = async () => {
+	try {
+		const response = await api.get(`/vans/reviews`, { headers });
+		return response.data.reviews;
+	} catch (err) {
+		console.log(err);
+	}
+};
 
+const getAverageScore = async () => {
+	try {
+		const response = await api.get(`/vans/reviews/averageScore`, { headers });
+		return response.data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+const getStarBarsData = async () => {
+	try {
+		const response = await api.get(`/vans/reviews/starBarsData`, { headers });
+		return response.data;
+	} catch (err) {
+		console.log(err);
+	}
+};
 // ******************************* CRUD CONTROLLERS VANS CLIENT END **
 // *******************************************************************
 
 export {
-	populateReviewsTab,
 	getVanIdPhotos,
-	getPageReviews,
 	getIncome,
 	getAllVansForUser,
-	getAllReviewsForUser,
-	getFilteredReviewsByStars,
+	getReviewsForUser,
+	getAverageScore,
+	getStarBarsData,
 	getAllVans,
 	getVanById,
 	login,
