@@ -20,10 +20,10 @@ const register = async (req, res) => {
 		.cookie("access_token", token, {
 			secure: true,
 			httpOnly: true,
-			sameSite: "None",
+			sameSite: "Strict",
 		})
 		.status(StatusCodes.CREATED)
-		.json({ msg: "user logged in", userId: user._id });
+		.json({ msg: "user logged in", userId: user._id, userName: user.name });
 };
 
 const login = async (req, res) => {
@@ -33,6 +33,7 @@ const login = async (req, res) => {
 		throw new BadRequestError("Please provide email and password");
 	}
 	const user = await User.findOne({ email });
+
 	if (!user) {
 		throw new UnauthenticatedError(
 			"Can't find profile with credentials provided."
@@ -45,16 +46,19 @@ const login = async (req, res) => {
 	}
 
 	const token = user.createJWT();
-	req.session.user = { id: user._id, username: user.name };
-	console.log(`${user.name} logged in`.green);
+	const userName = user.name;
+	const userId = user._id;
+	req.session.user = { id: userId, username: userName };
+	console.log(`${userName} logged in`.green);
+
 	res
 		.cookie("access_token", token, {
 			secure: true,
 			httpOnly: true,
-			sameSite: "None",
+			sameSite: "Strict",
 		})
 		.status(StatusCodes.CREATED)
-		.json({ msg: "user logged in", userId: user._id });
+		.json({ userId, userName, msg: "user logged in" });
 };
 
 const logout = (req, res) => {

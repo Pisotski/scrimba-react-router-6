@@ -1,11 +1,11 @@
 import { Form, Link, redirect } from "react-router-dom";
-import { setAuthCookie, login } from "../../controllers";
+import { login, setAuthCookie } from "../../controllers";
 
 const action = async ({ request }) => {
 	const formData = await request.formData();
 	const credentials = Object.fromEntries(formData);
 	const result = await login(credentials);
-	if (result) setAuthCookie(result);
+	if (result.userId && result.userName) setAuthCookie(result);
 	return redirect("/auth");
 };
 

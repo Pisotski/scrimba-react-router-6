@@ -5,7 +5,7 @@ const action = async ({ request }) => {
 	const formData = await request.formData();
 	const credentials = Object.fromEntries(formData);
 	const result = await register(credentials);
-	if (result) setAuthCookie(result);
+	if (result.userId && result.userName) setAuthCookie(result);
 	return redirect("/auth");
 };
 

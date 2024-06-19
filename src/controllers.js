@@ -20,7 +20,7 @@ const login = async (credentials) => {
 	const url = `${url_main}${url_auth}/login`;
 	try {
 		const result = await api.post(url, credentials, headers);
-		return result.data.userId;
+		return { userId: result.data.userId, userName: result.data.userName };
 	} catch (error) {
 		console.error(error);
 	}
@@ -34,16 +34,16 @@ const register = async (credentials) => {
 			headers
 		);
 		console.log(`new user ${credentials.name} created`);
-		return result.data.userId;
+		return { userId: result.data.userId, userName: result.data.userName };
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-const setAuthCookie = (userId) => {
-	console.log(userId);
+const setAuthCookie = ({ userId, userName }) => {
 	Cookies.set("isAuthorized", true, { expires: 7, path: "/" });
 	localStorage.setItem("userId", userId);
+	localStorage.setItem("userName", userName);
 	return;
 };
 
@@ -53,6 +53,7 @@ const logout = async () => {
 		const result = await axios.get(url, headers);
 		Cookies.remove("isAuthorized");
 		localStorage.removeItem("userId");
+		localStorage.removeItem("userName");
 		return result;
 	} catch (error) {
 		console.error(error);
@@ -130,18 +131,24 @@ const getVanIdPhotos = async ({ vanId }) => {
 	}
 };
 
-const getReviewsForUser = async () => {
+const getReviewsForUser = async (params) => {
 	try {
-		const response = await api.get(`/vans/reviews`, { headers });
-		return response.data.reviews;
+		const {
+			data: { reviews, totalReviews },
+		} = await api.get(`/vans/reviews`, { params });
+		return { reviews, totalReviews };
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-const getAverageScore = async () => {
+const getAverageScore = async (date) => {
 	try {
-		const response = await api.get(`/vans/reviews/averageScore`, { headers });
+		const response = await api.get(`/vans/reviews/averageScore`, {
+			params: {
+				date,
+			},
+		});
 		return response.data;
 	} catch (err) {
 		console.log(err);

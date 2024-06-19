@@ -2,37 +2,50 @@ import { useSearchParams } from "react-router-dom";
 import "../../assets/PaginationButtonsGroup.css";
 
 const PaginationButtonsGroup = ({ totalNumber }) => {
-	let [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	const page = parseInt(searchParams.get("page")) || 1;
-	const pageSize = parseInt(searchParams.get("pageSize")) || 5;
-	const pagesArray = [...Array(Math.ceil(totalNumber / pageSize)).keys()];
+	const page = parseInt(searchParams.get("skip")) || 0;
+	const pageSize = parseInt(searchParams.get("limit")) || 5;
 	const star = parseInt(searchParams.get("star"));
-	const handlePageChange = (newPage) => {
-		console.log(star);
-		if (star) {
-			return setSearchParams({ page: newPage, pageSize, star });
-		}
-		setSearchParams({ page: newPage, pageSize });
+	const lastPage = Math.ceil(totalNumber / pageSize);
+
+	const handlePageChange = (e) => {
+		e.preventDefault();
+		const newPage = e.currentTarget.value;
+		const newParams = { skip: newPage, limit: pageSize };
+		if (star) newParams.star = star;
+		setSearchParams(newParams);
 	};
 
 	return (
 		<div className="pagination-container">
-			<button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
+			<button onClick={handlePageChange} value={page - 1} disabled={page === 0}>
 				prev
 			</button>
-			{pagesArray.map((p) => {
-				return (
-					<span
-						className={page == p + 1 ? "active-page" : null}
-						key={`page-${p}`}
-					>
-						{p + 1}
-					</span>
-				);
-			})}
+			<button value={0} onClick={handlePageChange}>
+				1
+			</button>
+			{page < lastPage && page > 0 ? (
+				<>
+					<button value={page + 1} onClick={handlePageChange}>
+						{page + 1}
+					</button>
+					....
+				</>
+			) : (
+				<>....</>
+			)}
+
 			<button
-				onClick={() => handlePageChange(page + 1)}
+				value={lastPage}
+				onClick={handlePageChange}
+				disabled={page === lastPage}
+			>
+				{lastPage + 1}
+			</button>
+			<button
+				onClick={handlePageChange}
+				value={page + 1}
 				disabled={page * pageSize >= totalNumber}
 			>
 				next

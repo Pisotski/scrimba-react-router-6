@@ -94,26 +94,47 @@ const getUserIncome = async (req, res) => {
 
 const getAllReviews = async (req, res) => {
 	const { userId } = req.user;
+	const { skip = 0, limit = 10, star } = req.query;
 
 	try {
-		let reviews = await Review.find({ owner: userId });
-		if (!reviews.length) {
-			await generateReviews(userId);
-			reviews = await Review.find({ owner: userId });
+		let filter = { owner: userId };
+		if (star) {
+			filter.score = star;
 		}
+		const skipValue = parseInt(skip);
+		const limitValue = parseInt(limit);
+		const reviewsQuery = Review.find(filter).skip(skipValue).limit(limitValue);
+		const countQuery = Review.countDocuments(filter);
+
+		const [reviews, totalReviews] = await Promise.all([
+			reviewsQuery,
+			countQuery,
+		]);
+
 		res.status(StatusCodes.OK).json({
 			reviews,
+			totalReviews,
 		});
 	} catch (error) {
-		console.error("Error fetching income entries:", error);
-		return [];
+		console.error("Error fetching reviews:", error);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			message: "Error fetching reviews",
+			error: error.message,
+		});
 	}
 };
 
 const getAverageScoreReviews = async (req, res) => {
 	const { userId } = req.user;
+	const date = new Date(req.query.date);
+
+	const match = { owner: new mongoose.Types.ObjectId(userId) };
+	if (date) match.date = { $gte: date };
 	try {
 		const averageScore = await Review.aggregate([
+			{
+				$match: match,
+			},
 			{
 				$group: {
 					_id: "$owner_id",
@@ -138,13 +159,14 @@ const getAverageScoreReviews = async (req, res) => {
 		]);
 
 		res.status(StatusCodes.OK).json({
-			averageScore: averageScore[0].averageScore,
+			averageScore: averageScore[0] ? averageScore[0].averageScore : [],
 		});
 	} catch (error) {
 		console.error("Error fetching income entries:", error);
 		return [];
 	}
 };
+
 const getStarBarsData = async (req, res) => {
 	const { userId } = req.user;
 

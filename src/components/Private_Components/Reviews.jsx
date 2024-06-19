@@ -1,4 +1,4 @@
-import { useLoaderData, useLocation, useSearchParams } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Star } from "../Reusable_Components/Star";
 import {
@@ -10,13 +10,7 @@ import { ProgressBar } from "../../components/Reusable_Components/ProgressBar";
 import { ReviewsList } from "../Reusable_Components/ReviewsList";
 import { PaginationButtonsGroup } from "../Reusable_Components/PaginationButtonsGroup";
 
-const loader = async ({ params, request }) => {
-	const { userId } = params;
-
-	const reviewsAll = await getReviewsForUser(userId);
-	const { averageScore } = await getAverageScore();
-	const { starBarsData } = await getStarBarsData();
-
+const loader = async ({ request }) => {
 	// *********************************************************
 	// ************************** pagination and stars filter **
 	const url = new URL(request.url);
@@ -25,21 +19,20 @@ const loader = async ({ params, request }) => {
 	const limit = url.searchParams.get("limit") || 5;
 	// ********************** end pagination and stars filter **
 	// *********************************************************
-	const filteredReviews = reviewsAll.filter(
-		(review) => review.score === Number(star)
-	);
 
-	// *********************************************************
-	// // this part is needed for star bars
-	// // TODO: design DB that will sort/filter information
-	const reviewsCount = reviewsAll.length;
-	// *********************************************************
+	const thirtyDaysAgo = new Date();
+	thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+	const [{ reviews, totalReviews }, { averageScore }, { starBarsData }] =
+		await Promise.all([
+			getReviewsForUser({ skip, limit, star }),
+			getAverageScore(thirtyDaysAgo),
+			getStarBarsData(),
+		]);
 
 	return {
-		reviewsAll,
-		reviewsCount,
+		reviews,
+		totalReviews,
 		starBarsData,
-		filteredReviews,
 		averageScore,
 	};
 };
@@ -47,28 +40,37 @@ const loader = async ({ params, request }) => {
 const Reviews = () => {
 	const data = useLoaderData();
 
-	const {
-		reviewsAll,
-		reviewsCount,
-		starBarsData,
-		filteredReviews,
-		averageScore,
-	} = data;
+	const { reviews, totalReviews, starBarsData, averageScore } = data;
 
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [reviews, setReviews] = useState(reviewsAll);
+	const [reviewsState, setReviewsState] = useState(reviews);
+
+	useEffect(
+		() =>
+			setSearchParams({
+				skip: 0,
+				limit: 5,
+			}),
+		[]
+	);
 
 	useEffect(() => {
-		setSearchParams({ skip: 0, limit: 5 });
-	}, []);
+		const fetchReviews = async () => {
+			try {
+				const newReviews = await getReviewsForUser(searchParams);
+				setReviewsState(newReviews.reviews);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		fetchReviews();
+	}, [searchParams]);
 
 	const handleOnProgressBarClick = (e) => {
-		e.currentTarget.preventDefault;
+		e.preventDefault();
 		const { star } = e.currentTarget.dataset;
-		const skip = parseInt(searchParams.get("skip")) || 1;
-		const limit = parseInt(searchParams.get("limit")) || 5;
-		setReviews(filteredReviews);
-		setSearchParams({ skip, limit, star });
+		setSearchParams({ skip: 0, limit: 5, star });
 	};
 
 	// refresh
@@ -97,11 +99,11 @@ const Reviews = () => {
 				/>
 			</section>
 			<section className="reviews-list">
-				<h3 onClick={handleOnReviewsClick}>Reviews ({reviewsCount})</h3>
-				<ReviewsList reviews={reviews} />
+				<h3 onClick={handleOnReviewsClick}>Reviews ({totalReviews})</h3>
+				<ReviewsList reviews={reviewsState} />
 				{/* pagination to be displayed only if there are more than x reviews */}
 				{/* store reviews amount in location state */}
-				<PaginationButtonsGroup totalNumber={reviewsCount} />
+				<PaginationButtonsGroup totalNumber={totalReviews} />
 			</section>
 		</>
 	);
