@@ -36,9 +36,9 @@ const Host = () => {
 	// TODO: create if user logged in display routes?
 	return (
 		<>
-			<div className="header private">
+			<header className="header-private">
 				<Navbar links={links} isPrivate={true} />
-			</div>
+			</header>
 			<Outlet />
 		</>
 	);

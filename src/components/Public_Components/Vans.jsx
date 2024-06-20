@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLoaderData, useSearchParams, useLocation } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { Grid } from "../Reusable_Components/Grid";
 import { getAllVans } from "../../controllers";
 import { OptionButtonsBar } from "../Reusable_Components/OptionButtonsBar";
@@ -21,8 +21,6 @@ const Vans = ({ data }) => {
 	const { allVans, type } = useLoaderData();
 
 	const [searchParams, setSearchParams] = useSearchParams();
-	const location = useLocation();
-	const header = location.state?.header || "Explore our van options";
 	const vansData = allVans || data || [];
 
 	const filteredVans = (filterBy) =>
@@ -48,20 +46,14 @@ const Vans = ({ data }) => {
 
 	return (
 		<>
-			<div className="vans">
-				<Grid vans={vans}>
-					<div className="header-name align-left">{header}</div>
-					{/* FIXME: design a better way for displaying option bar only for
-					private route */}
-					{!location.pathname.includes("host") && (
-						<OptionButtonsBar
-							type={type}
-							handleOptionClick={handleOptionClick}
-							handleClearFiltersClick={handleClearFiltersClick}
-						/>
-					)}
-				</Grid>
-			</div>
+			<Grid vans={vans}>
+				<div className="vans-header">Explore our van options</div>
+				<OptionButtonsBar
+					type={type}
+					handleOptionClick={handleOptionClick}
+					handleClearFiltersClick={handleClearFiltersClick}
+				/>
+			</Grid>
 		</>
 	);
 };

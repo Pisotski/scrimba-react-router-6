@@ -1,0 +1,62 @@
+.income-wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	border: brown 1px dotted;
+}
+
+.bar-wrapper {
+	min-height: 250px;
+	border: brown 1px dotted;
+}
+
+.income-header-wrapper > div {
+	color: grey;
+}
+
+.income-transaction-list-wrapper {
+	flex: 1;
+	overflow-y: scroll;
+	border: brown 1px dotted;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.income-transaction-list-wrapper > ul {
+	width: 100%;
+}
+
+.income-transaction-list-wrapper label {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 3rem;
+	border: brown 1px dotted;
+}
+
+.income-transaction-list-wrapper label span:first-child {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.income-transaction-list-wrapper label span:last-child {
+	font-size: 0.8em;
+}
+
+.income-transaction-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: brown 1px dotted;
+	height: 4rem;
+}
+
+.income-transaction-wrapper span:first-child {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.income-transaction-wrapper span:last-child {
+	font-size: 0.8em;
+}

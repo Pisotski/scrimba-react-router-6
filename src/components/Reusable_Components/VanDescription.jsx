@@ -10,7 +10,6 @@ import { titleCase } from "../../helpers";
 import { Navbar } from "./Navbar";
 import "../../assets/VanDescription.css";
 
-// Separate loader here is done intentionally since not all data should be loaded on vans preview /vans
 const loader = async ({ params }) => {
 	const { vanId, userId } = params;
 	const { van } = await getVanById(vanId);
@@ -59,25 +58,35 @@ const VanDescription = () => {
 			<figure className="van-description-image-container">
 				<img src={imageUrl} />
 			</figure>
-			<h2>{name}</h2>
-			<Link to={options}>
-				<button type="submit" className={`option-button grid-button ${type}`}>
-					{titleCase(type)}
-				</button>
-			</Link>
 			{isPrivate ? (
 				<>
+					<h2>{name}</h2>
+					<button className={`option-button grid-button ${type}`}>
+						{titleCase(type)}
+					</button>
 					<Navbar links={links} />
 					<Outlet />
 				</>
 			) : (
 				<>
+					<Link to={options}>
+						<button
+							type="submit"
+							className={`option-button grid-button ${type}`}
+						>
+							{titleCase(type)}
+						</button>
+					</Link>
+					<h2>{name}</h2>
+
 					<span>
 						<strong>${price}</strong>/day
 					</span>
 					<p>{description}</p>
-					<Form method="post" className="wide-submit-button">
-						<button type="submit">Rent this van</button>
+					<Form method="post" className="wide-tall-button-container">
+						<button type="submit" className="wide tall button ">
+							Rent this van
+						</button>
 					</Form>
 				</>
 			)}

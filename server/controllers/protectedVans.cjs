@@ -94,8 +94,7 @@ const getUserIncome = async (req, res) => {
 
 const getAllReviews = async (req, res) => {
 	const { userId } = req.user;
-	const { skip = 0, limit = 10, star } = req.query;
-
+	const { skip = 0, limit = 5, star } = req.query;
 	try {
 		let filter = { owner: userId };
 		if (star) {
@@ -132,28 +131,17 @@ const getAverageScoreReviews = async (req, res) => {
 	if (date) match.date = { $gte: date };
 	try {
 		const averageScore = await Review.aggregate([
-			{
-				$match: match,
-			},
+			{ $match: match },
 			{
 				$group: {
-					_id: "$owner_id",
+					_id: null,
 					averageScore: { $avg: "$score" },
 				},
 			},
 			{
-				$lookup: {
-					from: "users",
-					localField: "_id",
-					foreignField: "_id",
-					as: "owner",
-				},
-			},
-			{
 				$project: {
-					_id: 1,
+					_id: 0,
 					averageScore: { $round: ["$averageScore", 1] },
-					owner: { $arrayElemAt: ["$owner", 0] },
 				},
 			},
 		]);

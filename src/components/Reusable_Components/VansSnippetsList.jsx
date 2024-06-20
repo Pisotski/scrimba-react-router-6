@@ -10,11 +10,13 @@ const loader = async () => {
 const VansSnippetsList = ({ vans }) => {
 	const vansList = vans || useLoaderData();
 	const location = useLocation();
+	const isVansTab = location.pathname.includes("vans");
+
 	return (
-		<div className="list">
+		<div className="vans-snippets-wrapper">
 			{vansList.map(({ _id, name, imageUrl, price }) => (
 				<Link
-					to={location.pathname.includes("vans") ? _id : `vans/${_id}`}
+					to={isVansTab ? _id : `vans/${_id}`}
 					key={_id}
 					state={{ from: location }}
 				>
@@ -22,10 +24,13 @@ const VansSnippetsList = ({ vans }) => {
 						<figure className="image-container">
 							<img src={imageUrl} />
 						</figure>
-						<h2>{name}</h2>
-						<div>
-							<strong>{price}</strong>
-							<span>/day</span>
+						<div className="snippet-content">
+							<div>
+								<div className="snippet-name">{name}</div>
+								<b>{price}</b>
+								/day
+							</div>
+							{!isVansTab ? <div>edit</div> : null}
 						</div>
 					</div>
 				</Link>

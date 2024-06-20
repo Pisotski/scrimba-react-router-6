@@ -1,0 +1,31 @@
+.home.wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	border: brown 1px dotted;
+	/* Background image */
+	background-image: linear-gradient(
+			rgba(255, 255, 255, 0.5),
+			rgba(0, 0, 0, 0.5)
+		),
+		url("../assets/home_background.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.home.wrapper > section {
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.wide-tall-button-container {
+	flex: 1;
+	border: brown 1px dotted;
+	align-self: center;
+	width: 90%;
+}

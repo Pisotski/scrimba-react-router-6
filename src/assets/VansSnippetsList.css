@@ -6,6 +6,7 @@
 .snippet {
 	display: flex;
 	background-color: azure;
+	align-items: center;
 	border: red dotted 1px;
 }
 
@@ -18,4 +19,20 @@
 
 .image-container > img {
 	max-width: 100%;
+}
+
+.snippet-content {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.snippet-name {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+.vans-snippets-wrapper {
+	flex: 1;
 }

@@ -1,8 +1,43 @@
 .app {
+	flex: 1;
 	display: flex;
 	flex-flow: column;
-	height: 100%;
-	min-height: 100vh;
 	background-color: beige;
-	overflow-y: hidden;
+	overflow: hidden;
+	border: brown 1px dotted;
+	border-bottom: blue 2px dotted;
+	box-sizing: border-box;
 }
+
+/* ******************************* */
+/* ********** HEADER ************* */
+.header.main {
+	border: brown 1px dotted;
+	display: flex;
+	max-width: 100vw;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+.header.main > * {
+	border: brown 1px dotted;
+}
+
+.header-private {
+	border: brown 1px dotted;
+	height: 3rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+/* ********* END HEADER ********** */
+/* ******************************* */
+
+/* ******************************* */
+/* ********** FOOTER ************* */
+footer {
+	border: darkorange 1px dotted;
+	min-height: 3em;
+}
+/* ********* END FOOTER ********** */
+/* ******************************* */

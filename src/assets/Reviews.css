@@ -1,0 +1,54 @@
+.reviews-header {
+	display: flex;
+	gap: 1rem;
+	align-items: baseline;
+	border: brown 1px dotted;
+}
+
+.reviews-bars-summary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	height: 3rem;
+	border: brown 1px dotted;
+}
+.reviews-bars-summary > span:first-child {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.reviews-bars-body {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+.progress-bar {
+	width: 60%;
+	height: 5px;
+	background-color: lightgrey;
+	border-radius: 25px;
+	overflow: hidden;
+}
+
+.progress-bar__fill {
+	height: 100%;
+	background-color: orange;
+	width: 0;
+	transition: width 0.5s ease-in-out;
+}
+
+.review-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	height: 2rem;
+}
+
+.review-header time {
+	color: grey;
+}
+
+.review-content {
+	padding-bottom: 1.5rem;
+}

@@ -7,14 +7,14 @@ const ReviewsList = ({ reviews }) => {
 			{reviews.map((review) => {
 				const { guestName, date, reviewText, score } = review;
 				return (
-					<figure key={review._id}>
+					<figure key={review._id} className="review-wrapper">
 						<StarRating totalStars={score} />
-						<figcaption>
+						<figcaption className="review-header">
 							<b>{guestName} </b>
 							<time dateTime={date}>{monthDDYYYYFormat(date)}</time>
 						</figcaption>
-						<blockquote>{reviewText}</blockquote>
-						<div className="horizontal-line">___________</div>
+						<blockquote className="review-content">{reviewText}</blockquote>
+						<hr />
 					</figure>
 				);
 			})}

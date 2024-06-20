@@ -1,0 +1,41 @@
+.vans-header {
+	flex: 2;
+}
+
+.options-bar {
+	flex: 2;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: red dotted 1px;
+}
+
+.vans-options-wrapper {
+	display: flex;
+	gap: 1em;
+}
+
+.grid {
+	flex: 1;
+	display: flex;
+	min-height: min-content;
+	gap: 2.5%;
+	justify-content: center;
+	flex-wrap: wrap;
+	overflow-y: scroll;
+	background-color: rgb(222, 222, 222);
+	box-sizing: border-box;
+	border: 1px dotted blue;
+}
+
+.grid-item {
+	flex: 0 0 calc(45%);
+	background-color: rgb(222, 222, 222);
+	border: 1px dotted red;
+}
+
+.grid-item > img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}

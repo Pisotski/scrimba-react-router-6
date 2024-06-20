@@ -1,0 +1,39 @@
+.wrapper-dashboard {
+	flex: 6;
+	display: flex;
+	flex-direction: column;
+	border: brown 1px dotted;
+}
+
+.wrapper-dashboard-welcome {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	border: brown 1px dotted;
+	justify-content: center;
+}
+
+.dashboard-review {
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+	border: brown 1px dotted;
+	justify-content: center;
+}
+
+.dashboard-review-left b {
+	margin-left: 10px;
+}
+
+.dashboard-vans-snippets {
+	flex: 6;
+	display: flex;
+	flex-direction: column;
+	border: brown 1px dotted;
+}
+
+.space-between {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

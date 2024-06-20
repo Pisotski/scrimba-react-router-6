@@ -1,6 +1,7 @@
 .star-rating {
 	display: flex;
-	direction: row;
+	align-items: flex-end;
+	height: 2rem;
 }
 
 input[type="radio"] {

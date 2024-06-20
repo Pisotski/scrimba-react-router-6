@@ -65,6 +65,7 @@ const Income = () => {
 			setIncomeToDisplay(incomeLast4Months[month]);
 		}
 	};
+
 	const data = {
 		labels: Object.keys(incomeLast4Months),
 		datasets: [
@@ -82,9 +83,19 @@ const Income = () => {
 	};
 
 	return (
-		// FIXME: remove inline styling
-		<>
-			<section style={{ width: "100%", height: "300px" }}>
+		<div className="income-wrapper">
+			<section className="income-header-wrapper">
+				<h2>Income</h2>
+				<div>Last 30 days</div>
+				<h1>
+					$
+					{incomeLast30Days.reduce(
+						(memo, transaction) => memo + transaction.transactionAmount,
+						0
+					)}
+				</h1>
+			</section>
+			<section className="bar-wrapper">
 				<Bar
 					data={data}
 					options={options}
@@ -92,21 +103,21 @@ const Income = () => {
 					onClick={handleBarClick}
 				/>
 			</section>
-			<section>
+			<section className="income-transaction-list-wrapper">
 				<ul>
 					<label>
-						Your transactions ({incomeToDisplay.length})
+						<span>Your transactions ({incomeToDisplay.length})</span>
 						<span>last 30 days</span>{" "}
 					</label>
 					{incomeToDisplay.map((transaction) => (
-						<li key={transaction._id}>
+						<li key={transaction._id} className="income-transaction-wrapper">
 							<span>${transaction.transactionAmount}</span>
 							<span>{MMDDYYFormat(transaction.date)}</span>
 						</li>
 					))}
 				</ul>
 			</section>
-		</>
+		</div>
 	);
 };
 

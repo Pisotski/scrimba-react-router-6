@@ -1,18 +1,5 @@
 import { titleCase } from "../../helpers";
-const categories = [
-	{
-		option: "simple",
-		id: 1,
-	},
-	{
-		option: "luxury",
-		id: 2,
-	},
-	{
-		option: "rugged",
-		id: 3,
-	},
-];
+const categories = ["simple", "luxury", "rugged"];
 
 const OptionButtonsBar = ({
 	type,
@@ -20,11 +7,11 @@ const OptionButtonsBar = ({
 	handleClearFiltersClick,
 }) => {
 	return (
-		<div className="option-bar">
+		<div className="options-bar">
 			<div className="vans-options-wrapper">
-				{categories.map(({ option, id }) => (
+				{categories.map((option) => (
 					<button
-						key={id}
+						key={option}
 						className={`option-button ${type === option ? option : ""}`}
 						onClick={handleOptionClick}
 					>
@@ -33,8 +20,8 @@ const OptionButtonsBar = ({
 				))}
 			</div>
 
-			<div onClick={handleClearFiltersClick} className="smallest-font">
-				Clear filters
+			<div onClick={handleClearFiltersClick}>
+				<u>Clear filters</u>
 			</div>
 		</div>
 	);

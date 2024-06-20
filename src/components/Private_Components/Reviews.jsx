@@ -9,6 +9,7 @@ import {
 import { ProgressBar } from "../../components/Reusable_Components/ProgressBar";
 import { ReviewsList } from "../Reusable_Components/ReviewsList";
 import { PaginationButtonsGroup } from "../Reusable_Components/PaginationButtonsGroup";
+import "../../assets/Reviews.css";
 
 const loader = async ({ request }) => {
 	// *********************************************************
@@ -44,15 +45,6 @@ const Reviews = () => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [reviewsState, setReviewsState] = useState(reviews);
-
-	useEffect(
-		() =>
-			setSearchParams({
-				skip: 0,
-				limit: 5,
-			}),
-		[]
-	);
 
 	useEffect(() => {
 		const fetchReviews = async () => {
@@ -101,8 +93,6 @@ const Reviews = () => {
 			<section className="reviews-list">
 				<h3 onClick={handleOnReviewsClick}>Reviews ({totalReviews})</h3>
 				<ReviewsList reviews={reviewsState} />
-				{/* pagination to be displayed only if there are more than x reviews */}
-				{/* store reviews amount in location state */}
 				<PaginationButtonsGroup totalNumber={totalReviews} />
 			</section>
 		</>
