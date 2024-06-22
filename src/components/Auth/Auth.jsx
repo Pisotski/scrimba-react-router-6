@@ -1,5 +1,6 @@
 import { Outlet, redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+import "../../assets/Auth.css";
 
 const loader = () => {
 	const isAuthorized = Cookies.get("isAuthorized");

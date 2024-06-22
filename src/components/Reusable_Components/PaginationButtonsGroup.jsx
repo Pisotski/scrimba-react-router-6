@@ -11,23 +11,29 @@ const PaginationButtonsGroup = ({ totalNumber }) => {
 
 	const handlePageChange = (e) => {
 		e.preventDefault();
-		const newPage = e.currentTarget.value;
+		const newPage = parseInt(e.currentTarget.value);
 		const newParams = { skip: newPage, limit: pageSize };
-		if (star) newParams.star = star;
-		setSearchParams(newParams);
+		const newSearchParams = new URLSearchParams(searchParams);
+		newSearchParams.set("skip", newPage.toString());
+		setSearchParams(newSearchParams);
 	};
 
 	return (
 		<div className="pagination-container">
-			<button onClick={handlePageChange} value={page - 1} disabled={page === 0}>
+			<button
+				type="button"
+				onClick={handlePageChange}
+				value={page - 1}
+				disabled={page === 0}
+			>
 				prev
 			</button>
-			<button value={0} onClick={handlePageChange}>
+			<button type="button" value={0} onClick={handlePageChange}>
 				1
 			</button>
 			{page < lastPage && page > 0 ? (
 				<>
-					<button value={page + 1} onClick={handlePageChange}>
+					<button type="button" value={page + 1}>
 						{page + 1}
 					</button>
 					....
@@ -37,6 +43,7 @@ const PaginationButtonsGroup = ({ totalNumber }) => {
 			)}
 
 			<button
+				type="button"
 				value={lastPage}
 				onClick={handlePageChange}
 				disabled={page === lastPage}
@@ -44,6 +51,7 @@ const PaginationButtonsGroup = ({ totalNumber }) => {
 				{lastPage + 1}
 			</button>
 			<button
+				type="button"
 				onClick={handlePageChange}
 				value={page + 1}
 				disabled={page * pageSize >= totalNumber}

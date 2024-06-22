@@ -46,6 +46,7 @@
 		"react-router-dom": "^6.23.0",
 		"styled-components": "^6.1.11",
 		"victory": "^37.0.2",
+		"vite-plugin-svgr": "^4.2.0",
 		"xss-clean": "^0.1.4"
 	},
 	"devDependencies": {

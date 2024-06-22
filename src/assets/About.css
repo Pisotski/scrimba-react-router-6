@@ -5,7 +5,7 @@
 	border: brown 1px dotted;
 }
 .about-header {
-	flex: 1;
+	flex: 2;
 	border: brown 1px dotted;
 	background-image: url("../assets/about_image.jpg");
 	background-size: cover;
@@ -14,8 +14,8 @@
 }
 
 .about-text-wrapper {
+	padding: 0 1rem;
 	flex: 1;
-	border: brown 1px dotted;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -25,11 +25,16 @@
 .about-button-container {
 	flex: 1;
 	display: flex;
+	gap: 1rem;
+	padding: 0 1rem;
+	border-radius: 5px;
 	flex-direction: column;
-	border: brown 1px dotted;
-	background-image: linear-gradient(#e6ccb2, #e6ccb2);
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
 	justify-content: center;
+	background-color: var(--sandy-orange-color);
+	margin: 2rem 1rem;
+}
+
+.about-button-container button {
+	background-color: var(--black-color);
+	color: var(--main-background-color);
 }

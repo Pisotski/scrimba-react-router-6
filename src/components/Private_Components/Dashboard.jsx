@@ -38,10 +38,7 @@ const Dashboard = () => {
 			<section className="dashboard-review">
 				<div className="space-between">
 					<span className="dashboard-review-left">
-						<h3>
-							Review score
-							<b>{score.averageScore}</b>/5
-						</h3>
+						<h3>Review score {score.averageScore}/5</h3>
 					</span>
 					<Link to="reviews">
 						<span className="smallest-font">Details</span>
@@ -50,7 +47,7 @@ const Dashboard = () => {
 			</section>
 			<section className="dashboard-vans-snippets">
 				<div className="space-between">
-					<header className="smallest-font">
+					<header>
 						<h3>Your listed vans</h3>
 					</header>
 					<Link to="vans">

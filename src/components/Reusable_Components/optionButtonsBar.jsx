@@ -20,7 +20,7 @@ const OptionButtonsBar = ({
 				))}
 			</div>
 
-			<div onClick={handleClearFiltersClick}>
+			<div className="clear-filters" onClick={handleClearFiltersClick}>
 				<u>Clear filters</u>
 			</div>
 		</div>

@@ -21,10 +21,14 @@ const VanDescription = () => {
 	const { name, price, description, imageUrl, type } = van;
 
 	const location = useLocation();
-	const isPrivate = location.pathname.includes("host");
+	const path = location.pathname;
+	const isPrivate = path.includes("host");
 	location.state = { ...location.state, van };
 
-	let backToVansLink = isPrivate ? location.state.from : -1;
+	const backToVansLink = path.substring(
+		0,
+		path.indexOf("/vans") + "/vans".length
+	);
 
 	const links = [
 		{
@@ -51,7 +55,6 @@ const VanDescription = () => {
 
 	return (
 		<div className="van-description">
-			{/* TODO: return to 'userid/host/vans' */}
 			<Link to={backToVansLink} className="clear-filters">
 				&larr; <span>Back to all vans</span>
 			</Link>
@@ -61,7 +64,7 @@ const VanDescription = () => {
 			{isPrivate ? (
 				<>
 					<h2>{name}</h2>
-					<button className={`option-button grid-button ${type}`}>
+					<button className={`description-type-button option-button ${type}`}>
 						{titleCase(type)}
 					</button>
 					<Navbar links={links} />
@@ -70,10 +73,7 @@ const VanDescription = () => {
 			) : (
 				<>
 					<Link to={options}>
-						<button
-							type="submit"
-							className={`option-button grid-button ${type}`}
-						>
+						<button type="submit" className={`option-button ${type}`}>
 							{titleCase(type)}
 						</button>
 					</Link>

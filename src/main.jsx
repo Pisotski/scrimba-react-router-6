@@ -58,6 +58,10 @@ import {
 	VansSnippetsList,
 	loader as vansSnippetsListLoader,
 } from "./components/Reusable_Components/VansSnippetsList.jsx";
+import {
+	AddVan,
+	action as addVanAction,
+} from "./components/Private_Components/AddVan.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -101,7 +105,7 @@ const router = createBrowserRouter([
 						element: <VanDescription />,
 						loader: vanDescriptionLoader,
 					},
-					// Protected routes
+					// Private routes
 					{
 						path: "host",
 						element: <Host />,
@@ -149,6 +153,11 @@ const router = createBrowserRouter([
 								path: ":userId/reviews",
 								element: <Reviews />,
 								loader: reviewsLoader,
+							},
+							{
+								path: ":userId/vans/addVan",
+								element: <AddVan />,
+								action: addVanAction,
 							},
 						],
 					},

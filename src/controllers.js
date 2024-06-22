@@ -74,8 +74,6 @@ const getAllVans = async () => {
 };
 
 const getAllVansForUser = async (limit) => {
-	//TODO: incorrect endpoint
-	// redo after populating different vans for different users
 	try {
 		const response = await api.get(`/vans`, {
 			params: {
@@ -83,6 +81,16 @@ const getAllVansForUser = async (limit) => {
 			},
 		});
 		return response.data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+const createVan = async (vanInfo) => {
+	try {
+		const response = await api.post(`/vans`, vanInfo, { headers });
+		console.log("van added");
+		return;
 	} catch (err) {
 		console.log(err);
 	}
@@ -120,10 +128,20 @@ const updateVan = async ({ vanId, updates }) => {
 	}
 };
 
+const deleteVan = async (vanId) => {
+	try {
+		const response = await api.delete(`/vans/${vanId}`);
+		console.log("van deleted");
+		return response.data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 const getVanIdPhotos = async ({ vanId }) => {
 	try {
 		const response = await api.get(`/vans/${vanId}`, { headers });
-		// TODO: Sample data that should come back from db when mock vans library created:
+		// TODO: photos when mock vans library created:
 
 		return [response.data.van.imageUrl];
 	} catch (err) {
@@ -131,6 +149,11 @@ const getVanIdPhotos = async ({ vanId }) => {
 	}
 };
 
+// ******************************* CRUD CONTROLLERS VANS CLIENT END **
+// *******************************************************************
+
+// *******************************************************************
+// ****************************************** REVIEW AND INCOME TAB **
 const getReviewsForUser = async (params) => {
 	try {
 		const {
@@ -162,7 +185,8 @@ const getStarBarsData = async () => {
 		console.log(err);
 	}
 };
-// ******************************* CRUD CONTROLLERS VANS CLIENT END **
+
+// ************************************** END REVIEW AND INCOME TAB **
 // *******************************************************************
 
 export {
@@ -178,5 +202,7 @@ export {
 	logout,
 	register,
 	setAuthCookie,
+	createVan,
 	updateVan,
+	deleteVan,
 };

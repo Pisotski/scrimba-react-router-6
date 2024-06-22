@@ -10,6 +10,7 @@ const SelectWithLabel = ({
 			onBlur={(event) => {
 				submit(event.currentTarget);
 			}}
+			className="input-with-label"
 		>
 			<label>{label}: </label>
 			<select name={field}>

@@ -14,7 +14,7 @@ const register = async (req, res) => {
 	}
 	user = await User.create({ ...req.body });
 	const token = user.createJWT();
-	req.session.user = { id: user._id, username: user.name };
+	req.session.user = { id: user._id, username: user.name, userObject: user };
 	console.log(`${user.name} logged in`.green);
 	res
 		.cookie("access_token", token, {
@@ -32,33 +32,38 @@ const login = async (req, res) => {
 	if (!email || !password) {
 		throw new BadRequestError("Please provide email and password");
 	}
-	const user = await User.findOne({ email });
+	try {
+		const user = await User.findOne({ email });
+		if (!user) {
+			throw new UnauthenticatedError(
+				"Can't find profile with credentials provided."
+			);
+		}
 
-	if (!user) {
-		throw new UnauthenticatedError(
-			"Can't find profile with credentials provided."
-		);
+		const isPasswordCorrect = await user.comparePassword(password);
+		if (!isPasswordCorrect) {
+			throw new UnauthenticatedError("Incorrect Login or Password");
+		}
+
+		const token = user.createJWT();
+		const userName = user.name;
+		const userId = user._id;
+		req.session.user = { id: userId, username: userName, userObject: user };
+		console.log(`${userName} logged in`.green);
+
+		res
+			.cookie("access_token", token, {
+				secure: true,
+				httpOnly: true,
+				sameSite: "Strict",
+			})
+			.status(StatusCodes.CREATED)
+			.json({ userId, userName, msg: "user logged in" });
+	} catch (error) {
+		res
+			.status(StatusCodes.BAD_REQUEST)
+			.json({ error: { msg: "Invalid credentials" } });
 	}
-
-	const isPasswordCorrect = await user.comparePassword(password);
-	if (!isPasswordCorrect) {
-		throw new UnauthenticatedError("Incorrect Login or Password");
-	}
-
-	const token = user.createJWT();
-	const userName = user.name;
-	const userId = user._id;
-	req.session.user = { id: userId, username: userName };
-	console.log(`${userName} logged in`.green);
-
-	res
-		.cookie("access_token", token, {
-			secure: true,
-			httpOnly: true,
-			sameSite: "Strict",
-		})
-		.status(StatusCodes.CREATED)
-		.json({ userId, userName, msg: "user logged in" });
 };
 
 const logout = (req, res) => {

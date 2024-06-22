@@ -3,6 +3,7 @@ import "../assets/ErrorPage.css";
 
 const ErrorPage = () => {
 	const error = useRouteError();
+	console.log(error);
 	const navigate = useNavigate();
 
 	return (
@@ -20,7 +21,7 @@ const ErrorPage = () => {
 				<i>{error.statusText || error.message}</i>
 			</p>
 			<Link to="/">
-				<button type="submit" className="option-button luxury">
+				<button type="submit" className="button wide tall luxury">
 					Return to home page
 				</button>
 			</Link>

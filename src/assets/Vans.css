@@ -1,18 +1,23 @@
 .vans-header {
-	flex: 2;
+	padding: 1rem;
+	font-size: x-large;
+	font-weight: 700;
 }
 
 .options-bar {
-	flex: 2;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border: red dotted 1px;
+	padding: 1rem;
 }
 
 .vans-options-wrapper {
 	display: flex;
 	gap: 1em;
+}
+
+.clear-filters {
+	font-size: x-small;
 }
 
 .grid {
@@ -23,19 +28,37 @@
 	justify-content: center;
 	flex-wrap: wrap;
 	overflow-y: scroll;
-	background-color: rgb(222, 222, 222);
 	box-sizing: border-box;
-	border: 1px dotted blue;
+	align-items: flex-start;
 }
 
 .grid-item {
 	flex: 0 0 calc(45%);
-	background-color: rgb(222, 222, 222);
-	border: 1px dotted red;
+	max-height: fit-content;
+	font-size: smaller;
+	align-self: flex-start;
+	padding-bottom: 2.5%;
+}
+
+.grid-item > div {
+	padding: 2.5% 2.5% 0 2.5%;
+	align-items: flex-start;
+}
+
+.grid-item.space-between {
+	align-items: start;
+}
+.grid-item-price {
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
+}
+.grid-item-price :last-child {
+	font-size: xx-small;
 }
 
 .grid-item > img {
 	max-width: 100%;
-	height: auto;
-	display: block;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
 }

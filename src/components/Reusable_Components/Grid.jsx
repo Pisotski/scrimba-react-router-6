@@ -20,11 +20,15 @@ const Grid = ({ vans, children }) => {
 							className="grid-item"
 						>
 							<img src={imageUrl}></img>
-							<strong className="grid-item-name">{name}</strong>
-							<strong className="grid-item-price">
-								${price}
-								<i className="smallest-font">/day</i>
-							</strong>
+							<div className="space-between">
+								<div className="grid-item-name">{name}</div>
+								<div className="grid-item-price">
+									<div>${price}</div>
+									<div>
+										<i className="smallest-font">/day</i>
+									</div>
+								</div>
+							</div>
 							<button className={`option-button grid-button ${type}`}>
 								{titleCase(type)}
 							</button>

@@ -85,15 +85,20 @@ const Income = () => {
 	return (
 		<div className="income-wrapper">
 			<section className="income-header-wrapper">
-				<h2>Income</h2>
-				<div>Last 30 days</div>
-				<h1>
+				<h3>Income</h3>
+				<div className="smallest-font grey">
+					Last{" "}
+					<u>
+						<b>30 days</b>
+					</u>
+				</div>
+				<h2>
 					$
 					{incomeLast30Days.reduce(
 						(memo, transaction) => memo + transaction.transactionAmount,
 						0
 					)}
-				</h1>
+				</h2>
 			</section>
 			<section className="bar-wrapper">
 				<Bar
@@ -105,9 +110,14 @@ const Income = () => {
 			</section>
 			<section className="income-transaction-list-wrapper">
 				<ul>
-					<label>
+					<label className="space-between income-transaction-label">
 						<span>Your transactions ({incomeToDisplay.length})</span>
-						<span>last 30 days</span>{" "}
+						<div className="smallest-font grey">
+							Last{" "}
+							<u>
+								<b>30 days</b>
+							</u>
+						</div>
 					</label>
 					{incomeToDisplay.map((transaction) => (
 						<li key={transaction._id} className="income-transaction-wrapper">

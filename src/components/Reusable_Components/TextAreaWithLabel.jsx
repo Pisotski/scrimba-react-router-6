@@ -1,6 +1,8 @@
 import { Form, useSubmit } from "react-router-dom";
 
-const InputWithLabel = ({ display: { input, label, field, actionRoute } }) => {
+const TextAreaWithLabel = ({
+	display: { input, label, field, actionRoute },
+}) => {
 	const submit = useSubmit();
 	return (
 		<Form
@@ -11,9 +13,9 @@ const InputWithLabel = ({ display: { input, label, field, actionRoute } }) => {
 			className="input-with-label"
 		>
 			<label>{label}: </label>
-			<input defaultValue={input} name={field} />
+			<textarea defaultValue={input} name={field} />
 		</Form>
 	);
 };
 
-export { InputWithLabel };
+export { TextAreaWithLabel };

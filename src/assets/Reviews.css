@@ -1,8 +1,11 @@
+.reviews-wrapper {
+	margin: 0 1rem;
+}
+
 .reviews-header {
 	display: flex;
 	gap: 1rem;
 	align-items: baseline;
-	border: brown 1px dotted;
 }
 
 .reviews-bars-summary {
@@ -10,8 +13,8 @@
 	align-items: center;
 	gap: 0.5rem;
 	height: 3rem;
-	border: brown 1px dotted;
 }
+
 .reviews-bars-summary > span:first-child {
 	font-size: 1.5em;
 	font-weight: bold;

@@ -2,6 +2,7 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	margin: 0 1rem 1rem 1rem;
 }
 
 .van-description-image-container {
@@ -13,4 +14,85 @@
 .van-description-image-container > img {
 	width: 100%;
 	object-fit: contain;
+}
+
+.clear-filters {
+	height: 4rem;
+	line-height: 4rem;
+}
+
+.description-type-button.option-button {
+	width: 20%;
+}
+.van-description > .nav-bar {
+	height: 4rem;
+	line-height: 4rem;
+}
+
+.input-with-label {
+	display: flex;
+	margin: 0.5rem 0;
+}
+
+.input-with-label label {
+	min-width: 25vw;
+	font-size: smaller;
+}
+
+.input-with-label input,
+.input-with-label textarea {
+	flex: 1;
+	background-color: transparent;
+	border: none;
+	resize: vertical;
+	box-sizing: border-box;
+	padding: 0;
+}
+
+.input-with-label textarea {
+	min-height: 6rem;
+}
+
+.input-with-label select {
+	flex: 1;
+	background-color: transparent;
+	border: none;
+	appearance: none;
+}
+
+.confirm-dialog-buttons {
+	border: 1px dotted red;
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.photo-wrapper {
+	max-width: 25vw;
+	aspect-ratio: 1 / 1;
+	overflow: hidden;
+}
+
+.photo-wrapper img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+.delete-button {
+	margin: 1rem 0 1rem auto;
+}
+.trash-bin-SVG {
+	width: 20px;
+	height: 20px;
+}
+
+.trash-bin-SVG:hover {
+	fill: red;
+}
+
+@media (max-width: 480px) {
+	.trash-bin-SVG {
+		width: 15px;
+		height: 15px;
+	}
 }

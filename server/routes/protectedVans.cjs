@@ -9,6 +9,7 @@ const {
 	getAllReviews,
 	getAverageScoreReviews,
 	getStarBarsData,
+	deleteVan,
 } = require("../controllers/protectedVans.cjs");
 
 router.get("/", getAllVansForUser);
@@ -19,5 +20,6 @@ router.get("/reviews/averageScore", getAverageScoreReviews);
 router.get("/reviews/starBarsData", getStarBarsData);
 router.get("/:vanId", getVanById);
 router.patch("/:vanId", updateVan);
+router.delete("/:vanId", deleteVan);
 
 module.exports = router;

@@ -29,7 +29,11 @@ const About = () => {
 					</strong>
 				</label>
 				<Link to="/vans">
-					<button type="submit" id="explore-our-vans" className="button tall">
+					<button
+						type="submit"
+						id="explore-our-vans"
+						className="standard-button"
+					>
 						Explore our vans
 					</button>
 				</Link>

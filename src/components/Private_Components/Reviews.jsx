@@ -67,17 +67,21 @@ const Reviews = () => {
 
 	// refresh
 	const handleOnReviewsClick = (e) => {
+		e.preventDefault();
 		e.currentTarget.preventDefault;
 		setSearchParams({ skip: 0, limit: 5 });
 	};
 
 	return (
-		<>
+		<div className="reviews-wrapper">
 			<section className="reviews-header">
 				<h2>Your reviews</h2>
-				<span>
-					last <strong>30 days</strong>
-				</span>
+				<div className="smallest-font grey">
+					Last{" "}
+					<u>
+						<b>30 days</b>
+					</u>
+				</div>
 			</section>
 			<section className="reviews-bars">
 				<div className="reviews-bars-summary">
@@ -92,10 +96,10 @@ const Reviews = () => {
 			</section>
 			<section className="reviews-list">
 				<h3 onClick={handleOnReviewsClick}>Reviews ({totalReviews})</h3>
-				<ReviewsList reviews={reviewsState} />
 				<PaginationButtonsGroup totalNumber={totalReviews} />
+				<ReviewsList reviews={reviewsState} />
 			</section>
-		</>
+		</div>
 	);
 };
 

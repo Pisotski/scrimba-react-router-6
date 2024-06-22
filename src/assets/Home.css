@@ -2,7 +2,6 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	border: brown 1px dotted;
 	/* Background image */
 	background-image: linear-gradient(
 			rgba(255, 255, 255, 0.5),
@@ -12,6 +11,7 @@
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+	padding: 1rem;
 }
 
 .home.wrapper > section {
@@ -25,7 +25,14 @@
 
 .wide-tall-button-container {
 	flex: 1;
-	border: brown 1px dotted;
 	align-self: center;
-	width: 90%;
+	width: 100%;
+}
+
+.wide-tall-button-container > button {
+	background-color: var(--hot-orange-color);
+	border: none;
+	border-radius: 5px;
+	color: var(--main-background-color);
+	font-weight: 500;
 }

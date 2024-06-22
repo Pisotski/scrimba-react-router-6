@@ -48,11 +48,25 @@ const updateVan = async (req, res) => {
 
 const createVan = async (req, res) => {
 	const { body } = req;
+	const { userId } = req.user;
+
 	const van = await Van.create({
-		createdBy: "665a1369a74ae7b602a187b3",
+		createdBy: userId,
 		...body,
 	});
+	console.log(van);
+
 	res.status(StatusCodes.CREATED).json({ van });
+};
+
+const deleteVan = async (req, res) => {
+	const { vanId } = req.params;
+	const { userId } = req.user;
+
+	const queryObject = { createdBy: userId, _id: vanId };
+	const van = await Van.findOneAndDelete(queryObject);
+	if (!van) throw new NotFoundError("van not found");
+	res.status(StatusCodes.OK).json({ deleted: van });
 };
 
 const getIncomeLastXPeriod = async (userId, startDate) => {
@@ -193,6 +207,7 @@ module.exports = {
 	getUserIncome,
 	getVanById,
 	updateVan,
+	deleteVan,
 	getAverageScoreReviews,
 	getStarBarsData,
 };

@@ -4,7 +4,6 @@ require("colors");
 
 const authMiddleware = (req, res, next) => {
 	const token = req.cookies.access_token;
-	const user = req.session.user;
 
 	if (!token) {
 		// TODO: technically i want to redirect to /login here
@@ -18,6 +17,7 @@ const authMiddleware = (req, res, next) => {
 		throw new UnauthenticatedError("Token Expired".red);
 	}
 };
+
 const sessionCheckMiddleware = (req, res, next) => {
 	if (req.session) {
 		if (

@@ -5,10 +5,6 @@ import { getAllVans } from "../../controllers";
 import { OptionButtonsBar } from "../Reusable_Components/OptionButtonsBar";
 import("../../assets/Vans.css");
 
-// to push more vans to airtable
-// import { vansDataNoId } from "../../../mockData";
-// vansDataNoId.map((van) => postVans({ fields: van }));
-
 const loader = async ({ params, request }) => {
 	const { allVans } = await getAllVans();
 	const { userId } = params;

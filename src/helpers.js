@@ -49,4 +49,21 @@ const countStarsPercentage = (data) => {
 	return starsNumberPerScore;
 };
 
-export { titleCase, countStarsPercentage, MMDDYYFormat, monthDDYYYYFormat };
+const hasEmptyField = (obj) => {
+	for (const key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			if (!obj[key]) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
+export {
+	titleCase,
+	countStarsPercentage,
+	MMDDYYFormat,
+	monthDDYYYYFormat,
+	hasEmptyField,
+};

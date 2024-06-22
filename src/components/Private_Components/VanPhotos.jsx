@@ -13,11 +13,11 @@ const VanPhotos = () => {
 
 	const data = useLoaderData();
 	return (
-		<>
+		<figure className="photo-wrapper">
 			{data.map((url) => (
 				<img key={url} src={url} />
 			))}
-		</>
+		</figure>
 	);
 };
 

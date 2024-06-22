@@ -1,8 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/********************************/
+/***** COLORS VARIABLES *********/
+:root {
+	--main-background-color: rgb(255, 248, 237);
+	--charcoal-color: rgb(37, 37, 37);
+	--hot-orange-color: rgb(255, 140, 56);
+	--sandy-orange-color: rgb(255, 204, 141);
+	--dark-green-color: rgb(15, 94, 89);
+	--black-color: rgb(22, 22, 22);
+	--lightest-background-color: rgb(255, 255, 255);
+	--light-background-color: rgb(255, 234, 208);
+	--dark-background-color: rgb(255, 220, 178);
+	--grey-color: rgb(77, 77, 77);
+}
+/***** COLORS VARIABLES END *****/
+/********************************/
+
 body,
 html {
+	font-family: "Montserrat", sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
 	margin: 0;
 	padding: 0;
 	height: 100%;
+	color: var(--charcoal-color);
+	background-color: var(--main-background-color);
 }
 
 nav {
@@ -34,11 +58,12 @@ a {
 }
 
 a:focus,
+a:link,
 a:visited,
 a:hover,
 a:active {
 	text-decoration: none;
-	color: black;
+	color: var(--black-color);
 }
 
 a:hover {
@@ -53,10 +78,49 @@ a:hover {
 	overflow: hidden;
 }
 
+button {
+	border: none;
+	border-radius: 5px;
+}
+
 .button.tall {
-	height: 2em;
+	height: 3rem;
 }
 
 .button.wide {
 	min-width: 100%;
+}
+
+.standard-button {
+	width: fit-content;
+	padding: 1em;
+}
+
+.option-button {
+	font-size: small;
+	padding: 0.5em 1em;
+}
+
+.simple {
+	background-color: var(--hot-orange-color);
+	color: var(--main-background-color);
+}
+
+.luxury {
+	background-color: var(--black-color);
+	color: var(--main-background-color);
+}
+
+.rugged {
+	background-color: var(--dark-green-color);
+	color: var(--main-background-color);
+}
+
+.nav-bar {
+	font-size: small;
+}
+
+.error-message {
+	font-size: smaller;
+	color: red;
 }

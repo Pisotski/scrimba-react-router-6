@@ -1,6 +1,5 @@
 import { useLoaderData, useLocation, Link } from "react-router-dom";
 import { getAllVansForUser } from "../../controllers";
-import "../../assets/VansSnippetsList.css";
 
 const loader = async () => {
 	const vans = await getAllVansForUser();
@@ -19,22 +18,26 @@ const VansSnippetsList = ({ vans }) => {
 					to={isVansTab ? _id : `vans/${_id}`}
 					key={_id}
 					state={{ from: location }}
+					className="van-snippet"
 				>
-					<div className="snippet">
-						<figure className="image-container">
-							<img src={imageUrl} />
-						</figure>
-						<div className="snippet-content">
-							<div>
-								<div className="snippet-name">{name}</div>
-								<b>{price}</b>
-								/day
-							</div>
-							{!isVansTab ? <div>edit</div> : null}
+					<figure className="image-container">
+						<img src={imageUrl} />
+					</figure>
+					<div className="snippet-content">
+						<div>
+							<div className="snippet-name">{name}</div>
+							<div className="snipper-price">{price}/day</div>
 						</div>
+						<div className="smallest-font">edit</div>
 					</div>
 				</Link>
 			))}
+			<Link
+				to={isVansTab ? `addVan` : `vans/addVan`}
+				className="add-button-wrapper"
+			>
+				<button className="button tall wide">Add van</button>
+			</Link>
 		</div>
 	);
 };
