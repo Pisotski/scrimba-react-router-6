@@ -1,0 +1,9 @@
+.star-rating {
+	display: flex;
+	align-items: flex-end;
+	height: 2rem;
+}
+
+input[type="radio"] {
+	display: none;
+}

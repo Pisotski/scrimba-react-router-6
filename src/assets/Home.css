@@ -1,0 +1,38 @@
+.home.wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	/* Background image */
+	background-image: linear-gradient(
+			rgba(255, 255, 255, 0.5),
+			rgba(0, 0, 0, 0.5)
+		),
+		url("../assets/home_background.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 1rem;
+}
+
+.home.wrapper > section {
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.wide-tall-button-container {
+	flex: 1;
+	align-self: center;
+	width: 100%;
+}
+
+.wide-tall-button-container > button {
+	background-color: var(--hot-orange-color);
+	border: none;
+	border-radius: 5px;
+	color: var(--main-background-color);
+	font-weight: 500;
+}

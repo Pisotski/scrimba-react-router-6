@@ -1,0 +1,53 @@
+.income-wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	margin: 0 1rem 1rem 1rem;
+}
+
+.bar-wrapper {
+	min-height: 250px;
+}
+
+.income-header-wrapper > h3 {
+	margin-top: 0;
+}
+
+.smallest-font.grey {
+	color: var(--grey-color);
+}
+
+.income-transaction-list-wrapper {
+	flex: 1;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	box-sizing: border-box;
+}
+
+.income-transaction-list-wrapper > ul {
+	width: 100%;
+}
+
+.income-transaction-label {
+	margin: 1rem;
+	min-height: 3rem;
+}
+
+.income-transaction-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 1rem 0;
+	padding: 1.5rem 1rem;
+	background-color: var(--lightest-background-color);
+	border-radius: 5px;
+}
+
+.income-transaction-wrapper span:first-child {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.income-transaction-wrapper span:last-child {
+	font-size: 0.8em;
+}
