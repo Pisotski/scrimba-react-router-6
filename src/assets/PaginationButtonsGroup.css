@@ -1,7 +1,19 @@
 .pagination-container {
 	display: flex;
+	gap: 1rem;
 }
 
 .active-page {
 	background-color: rgba(142, 142, 239, 0.5);
+}
+
+.pagination-next,
+.pagination-prev {
+	width: 2rem;
+	height: 1rem;
+}
+.pagination-button {
+	background-color: transparent;
+	min-width: 2rem;
+	min-height: 1rem;
 }

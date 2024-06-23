@@ -1,6 +1,11 @@
 require("dotenv").config();
 require("express-async-errors");
 require("colors");
+
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimiter = require("express-rate-limit");
+
 const session = require("express-session");
 
 const express = require("express");
@@ -62,7 +67,18 @@ app.use(cookieParser());
 app.use(customCors);
 /***************************************/
 
-// app.use(express.static("dist/app"));
+/*============ SECURITY	 =============*/
+/***************************************/
+const limiter = rateLimiter({
+	windowMs: 15 * 60 * 1000,
+	limit: 10000,
+});
+
+app.set("trust proxy", 1);
+app.use(limiter);
+app.use(helmet());
+app.use(xss());
+/***************************************/
 
 /*============= ROUTERS ===============*/
 /***************************************/
@@ -78,10 +94,12 @@ app.use(
 	sessionCheckMiddleware,
 	protectedVansRouter
 );
+
+//this is useless
 app.get("*", (_req, res) => {
 	res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
-console.log(__dirname);
+
 /***************************************/
 /***************************************/
 

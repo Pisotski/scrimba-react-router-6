@@ -15,6 +15,7 @@ const getAllVansForUser = async (req, res) => {
 	const { userId } = req.user;
 	const { limit } = req.query;
 	const query = Van.find({ createdBy: userId });
+	query.sort({ createdAt: -1 });
 	if (limit !== undefined) {
 		query.limit(limit);
 	}

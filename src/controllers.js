@@ -22,7 +22,7 @@ const login = async (credentials) => {
 		const result = await api.post(url, credentials, headers);
 		return { userId: result.data.userId, userName: result.data.userName };
 	} catch (error) {
-		console.error(error);
+		throw error;
 	}
 };
 
@@ -35,8 +35,8 @@ const register = async (credentials) => {
 		);
 		console.log(`new user ${credentials.name} created`);
 		return { userId: result.data.userId, userName: result.data.userName };
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -56,7 +56,7 @@ const logout = async () => {
 		localStorage.removeItem("userName");
 		return result;
 	} catch (error) {
-		console.error(error);
+		throw error;
 	}
 };
 // ************************************ AUTH CONTROLLERS CLIENT END **
@@ -68,8 +68,8 @@ const getAllVans = async () => {
 	try {
 		const response = await axios.get(url_public);
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -81,8 +81,8 @@ const getAllVansForUser = async (limit) => {
 			},
 		});
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -91,8 +91,8 @@ const createVan = async (vanInfo) => {
 		const response = await api.post(`/vans`, vanInfo, { headers });
 		console.log("van added");
 		return;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -101,8 +101,8 @@ const getVanById = async (vanId) => {
 	try {
 		const response = await axios.get(newUrl, { headers });
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -110,8 +110,8 @@ const getIncome = async () => {
 	try {
 		const response = await api.get("/vans/income", { headers });
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -123,8 +123,8 @@ const updateVan = async ({ vanId, updates }) => {
 			{ headers }
 		);
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -133,8 +133,8 @@ const deleteVan = async (vanId) => {
 		const response = await api.delete(`/vans/${vanId}`);
 		console.log("van deleted");
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -144,8 +144,8 @@ const getVanIdPhotos = async ({ vanId }) => {
 		// TODO: photos when mock vans library created:
 
 		return [response.data.van.imageUrl];
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -160,8 +160,8 @@ const getReviewsForUser = async (params) => {
 			data: { reviews, totalReviews },
 		} = await api.get(`/vans/reviews`, { params });
 		return { reviews, totalReviews };
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 
@@ -173,16 +173,17 @@ const getAverageScore = async (date) => {
 			},
 		});
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
+
 const getStarBarsData = async () => {
 	try {
 		const response = await api.get(`/vans/reviews/starBarsData`, { headers });
 		return response.data;
-	} catch (err) {
-		console.log(err);
+	} catch (error) {
+		throw error;
 	}
 };
 

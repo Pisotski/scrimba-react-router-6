@@ -8,7 +8,8 @@ const TextAreaWithLabel = ({
 		<Form
 			method="post"
 			onBlur={(event) => {
-				submit(event.currentTarget, { action: actionRoute });
+				if (event.currentTarget.children[1].value !== input)
+					submit(event.currentTarget, { action: actionRoute });
 			}}
 			className="input-with-label"
 		>

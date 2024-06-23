@@ -81,6 +81,7 @@ a:hover {
 button {
 	border: none;
 	border-radius: 5px;
+	min-width: fit-content;
 }
 
 .button.tall {
@@ -99,6 +100,7 @@ button {
 .option-button {
 	font-size: small;
 	padding: 0.5em 1em;
+	background-color: var(--light-background-color);
 }
 
 .simple {

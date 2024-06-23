@@ -1,5 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import "../../assets/PaginationButtonsGroup.css";
+import PaginationPrev from "../../assets/pagination_prev.svg?react";
+import PaginationNext from "../../assets/pagination_next.svg?react";
 
 const PaginationButtonsGroup = ({ totalNumber }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -22,24 +24,37 @@ const PaginationButtonsGroup = ({ totalNumber }) => {
 		<div className="pagination-container">
 			<button
 				type="button"
+				className="pagination-button pagination-prev"
 				onClick={handlePageChange}
 				value={page - 1}
 				disabled={page === 0}
 			>
-				prev
+				<PaginationPrev className="trash-bin-SVG">SVG</PaginationPrev>
 			</button>
-			<button type="button" value={0} onClick={handlePageChange}>
+
+			<button
+				type="button"
+				className="pagination-button"
+				value={0}
+				onClick={handlePageChange}
+				disabled={page < 1}
+			>
 				1
 			</button>
 			{page < lastPage && page > 0 ? (
 				<>
-					<button type="button" value={page + 1}>
+					<button type="button" value={page + 1} className="pagination-button">
 						{page + 1}
 					</button>
 					....
 				</>
 			) : (
-				<>....</>
+				<>
+					<button visibility="hidden" className="pagination-button">
+						{" "}
+					</button>
+					....
+				</>
 			)}
 
 			<button
@@ -47,16 +62,18 @@ const PaginationButtonsGroup = ({ totalNumber }) => {
 				value={lastPage}
 				onClick={handlePageChange}
 				disabled={page === lastPage}
+				className="pagination-button"
 			>
 				{lastPage + 1}
 			</button>
 			<button
 				type="button"
+				className="pagination-button pagination-next"
 				onClick={handlePageChange}
 				value={page + 1}
 				disabled={page * pageSize >= totalNumber}
 			>
-				next
+				<PaginationNext className="trash-bin-SVG">SVG</PaginationNext>
 			</button>
 		</div>
 	);

@@ -18,15 +18,15 @@ const AddVan = () => {
 	return (
 		<Form method="POST" className="auth-form">
 			{error && <div className="error-message">{error.msg}</div>}
-			<div>
+			<div className="space-between">
 				<label htmlFor="name">Van Name: </label>
 				<input id="name" placeholder="Mimosa in disguise" name="name"></input>
 			</div>
-			<div>
+			<div className="space-between">
 				<label htmlFor="price">Price: </label>
 				<input id="price" placeholder="100" name="price"></input>
 			</div>
-			<div>
+			<div className="space-between">
 				<label htmlFor="description">Description: </label>
 				<input
 					id="description"
@@ -34,7 +34,7 @@ const AddVan = () => {
 					name="description"
 				></input>
 			</div>
-			<div>
+			<div className="space-between">
 				<label htmlFor="imageUrl">Picture: </label>
 				<input
 					id="imageUrl"
@@ -42,7 +42,7 @@ const AddVan = () => {
 					name="imageUrl"
 				></input>
 			</div>
-			<div>
+			<div className="space-between">
 				<label>Type: </label>
 				<select name="type">
 					<option value={"simple"} id={"simple"}>
@@ -56,7 +56,7 @@ const AddVan = () => {
 					</option>
 				</select>
 			</div>
-			<button type="submit" className="option-button">
+			<button type="submit" className="wide tall button simple">
 				Submit
 			</button>
 		</Form>

@@ -2,11 +2,13 @@ import { Form, useSubmit } from "react-router-dom";
 
 const InputWithLabel = ({ display: { input, label, field, actionRoute } }) => {
 	const submit = useSubmit();
+
 	return (
 		<Form
 			method="post"
 			onBlur={(event) => {
-				submit(event.currentTarget, { action: actionRoute });
+				if (event.currentTarget.children[1].value !== input)
+					submit(event.currentTarget, { action: actionRoute });
 			}}
 			className="input-with-label"
 		>

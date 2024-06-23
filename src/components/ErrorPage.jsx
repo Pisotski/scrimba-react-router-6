@@ -3,7 +3,6 @@ import "../assets/ErrorPage.css";
 
 const ErrorPage = () => {
 	const error = useRouteError();
-	console.log(error);
 	const navigate = useNavigate();
 
 	return (
@@ -18,8 +17,13 @@ const ErrorPage = () => {
 			</div>
 			<h2>Sorry, the page you were looking for was not found</h2>
 			<p>
-				<i>{error.statusText || error.message}</i>
+				<i>
+					{error.response.data.message || error.statusText || error.message}
+				</i>
 			</p>
+			{/* <p>
+				<i>{error.response.data.error}</i>
+			</p> */}
 			<Link to="/">
 				<button type="submit" className="button wide tall luxury">
 					Return to home page
